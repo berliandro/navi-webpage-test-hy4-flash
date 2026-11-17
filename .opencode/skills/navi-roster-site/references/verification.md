@@ -73,7 +73,7 @@ New-Item -ItemType Junction -Path "$preview\navi-webpage-test-hy4-flash" -Target
 python -m http.server 3200 --directory $preview
 ```
 
-Verify `http://localhost:3200/navi-webpage-test-hy4-flash/` plus its CSS chunk, `assets/players/joshuaa.webp`, `assets/brand/team-logo.png`, `fonts/archivo-latin.woff2`, a merch image and `shop/` all return 200. `next start` does **not** work once `output: "export"` is set; use the static server above. Leave the real repo URL to the buyer — do not invent one.
+Run `npm run check:links` too: it fails if any exported HTML `href`/`src` lost the repo prefix (raw nav anchors are the common cause of a 404 titled "Error response"). Verify `http://localhost:3200/navi-webpage-test-hy4-flash/` plus its CSS chunk, `assets/players/joshuaa.webp`, `assets/brand/team-logo.png`, `fonts/archivo-latin.woff2`, a merch image and `shop/` all return 200, then click Matches, Titles, Media and Shop in the browser and confirm none lands on the 404 page. `next start` does **not** work once `output: "export"` is set; use the static server above. Leave the real repo URL to the buyer — do not invent one.
 
 ## Screenshots
 

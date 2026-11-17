@@ -1,21 +1,21 @@
 import MediaImage from "./MediaImage";
-import { asset } from "./assetPath";
+import { asset, route } from "./assetPath";
 
 // The primary navigation is a real set of routes: every item lands on an
 // actual page that can be opened in a tab, rather than inert text or a
 // dead in-page anchor. The portfolio-only Design notes route is retired.
 const NAV = [
-  { label: "Roster", href: "/" },
-  { label: "Matches", href: "/matches" },
-  { label: "Titles", href: "/titles" },
-  { label: "Media", href: "/media" },
-  { label: "Shop", href: "/shop" },
+  { label: "Roster", href: route("/") },
+  { label: "Matches", href: route("/matches") },
+  { label: "Titles", href: route("/titles") },
+  { label: "Media", href: route("/media") },
+  { label: "Shop", href: route("/shop") },
 ] as const;
 
 export default function SiteHeader({ active }: { active: string }) {
   return (
     <header className="topbar">
-      <a className="brand" href="/" aria-label="NAVI MPL ID — home">
+      <a className="brand" href={route("/")} aria-label="NAVI MPL ID — home">
         <MediaImage
           className="brand-mark"
           src={asset("/assets/brand/team-logo.png")}

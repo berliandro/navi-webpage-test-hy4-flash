@@ -11,7 +11,7 @@ import {
 } from "react";
 import MediaImage from "./MediaImage";
 import SiteHeader from "./SiteHeader";
-import { asset } from "./assetPath";
+import { asset, route } from "./assetPath";
 
 type Player = {
   id: string;
@@ -883,7 +883,7 @@ export default function Page() {
                   </li>
                 ))}
           </ul>
-          <a className="care-label" href="/shop">
+          <a className="care-label" href={route("/shop")}>
             Shop the collection <span aria-hidden="true">→</span>
           </a>
         </aside>

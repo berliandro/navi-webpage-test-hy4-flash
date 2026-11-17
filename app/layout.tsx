@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
-import { asset } from "./assetPath";
+import { asset, route } from "./assetPath";
 import PressFeedback from "./PressFeedback";
 
 const siteTitle = "NAVI MPL ID — Team & Merchandise";
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     type: "website",
     title: siteTitle,
     description: siteDescription,
-    url: "/",
+    url: route("/"),
     siteName: "NAVI MPL ID Fan Hub",
     images: [
       {

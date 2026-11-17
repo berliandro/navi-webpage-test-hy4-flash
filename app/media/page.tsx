@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import MediaImage from "../MediaImage";
 import SubPage from "../SubPage";
+import { asset } from "../assetPath";
 
 export const metadata: Metadata = {
   title: "Media — NAVI MPL ID",
@@ -111,7 +112,7 @@ export default function MediaPage() {
               <figure className="media-item" key={`${player.handle}-${index}`}>
                 <div className="media-plate">
                   <MediaImage
-                    src={player.src}
+                    src={asset(player.src)}
                     alt={`Portrait of ${player.handle}, NAVI MPL ID`}
                     width={830}
                     height={1044}
@@ -137,7 +138,7 @@ export default function MediaPage() {
               >
                 <div className="media-plate">
                   <MediaImage
-                    src={post.src}
+                    src={asset(post.src)}
                     alt={post.alt}
                     width={post.width}
                     height={post.height}
