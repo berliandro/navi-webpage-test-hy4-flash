@@ -215,10 +215,21 @@ a { color: inherit; }
 }
 .stats-toggle svg { width: 12px; height: 12px; fill: none; stroke: currentColor; stroke-width: 1.4; stroke-linejoin: round; }
 .stats-toggle:hover, .stats-toggle.is-open { border-color: var(--thread); color: var(--thread); background: var(--thread-wash); }
+/* The filter cluster is one right-aligned column: the status line lives below
+   the lane chips, so selecting a lens can never shift the chips sideways. */
+.filter-cluster {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.25rem;
+  min-width: 0;
+}
 .filters { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 0.3rem; }
 .filter:hover { border-color: var(--thread); color: var(--thread); }
 .filter[aria-pressed="true"] { border-color: var(--thread); color: var(--thread); background: var(--thread-wash); }
 .role-count {
+  display: block;
+  min-height: 0.9rem;
   font-size: var(--type-step-07);
   font-weight: 800;
   letter-spacing: var(--track-label);
@@ -227,6 +238,7 @@ a { color: inherit; }
   color: var(--thread);
   white-space: nowrap;
 }
+.role-count.is-idle { visibility: hidden; }
 
 /* ---------- the jersey field ---------- */
 .jersey {
@@ -1182,6 +1194,7 @@ img[data-hydrated="true"][data-media-state="loaded"] { opacity: 1; transition: o
     border-top: 1px dashed var(--seam);
   }
   .seam-controls { flex-direction: column; align-items: flex-start; gap: 0.8rem; margin-bottom: 1.4rem; }
+  .filter-cluster { align-items: flex-start; width: 100%; }
   .filters { justify-content: flex-start; }
   .jersey { display: block; height: auto; }
   .chest { height: 54vh; min-height: 380px; }

@@ -155,6 +155,7 @@ Corners are squared at 2px (`--radius-seam`) — garment hardware, not soft card
 - Squared 2px, 1px seam border, transparent ground, tracked uppercase label.
 - Selected: yellow fill with ink text; filter active state is yellow text on a yellow wash.
 - Stats toggle keeps a dashed border and a hairline divider so it reads as an instrument, not a third tab.
+- The focus-count status sits in a reserved line directly beneath the filter chips, not beside them in the control row. It is always in the layout (hidden when no lens is active), so selecting a lens never reflows or re-centres the lane chips.
 
 ### Featured print
 - A transparent official player cutout at full height on the cloth, with the handle across its lower third and a one-word role beneath.

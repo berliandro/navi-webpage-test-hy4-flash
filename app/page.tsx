@@ -486,6 +486,11 @@ export default function Page() {
   const handleParts = accentHandle(featured?.handle ?? "");
   const activeRole = filterToRole[filter] ?? "ALL";
   const inRoleCount = activeRole === "ALL" ? players.length : players.filter((p) => p.role === activeRole).length;
+  // Stable status string: the line keeps its slot even when no lens is active.
+  const focusLabel =
+    activeRole === "ALL"
+      ? ""
+      : `Focus · ${inRoleCount} ${roleCountLabel[activeRole] ?? "player"}`;
   // With a single in-role player there is nobody on the bench to focus: dimming
   // every companion would read as a broken board, so keep the bench lit.
   const isDimmed = (role: string) => activeRole !== "ALL" && role !== activeRole && inRoleCount > 1;
@@ -700,7 +705,7 @@ export default function Page() {
         )}
         </div>
         {tab === "players" ? (
-          <>
+          <div className="filter-cluster">
             <div className="filters" role="group" aria-label="Filter by role">
               {filters.map((f) => (
                 <button
@@ -714,16 +719,12 @@ export default function Page() {
                 </button>
               ))}
             </div>
-            {activeRole !== "ALL" && (
-              <span className="role-count" role="status">
-                Focus · {(() => {
-                  const n = players.filter((p) => p.role === activeRole).length;
-                  const label = roleCountLabel[activeRole] ?? "player";
-                  return `${n} ${label}`;
-                })()}
-              </span>
-            )}
-          </>
+            {/* Always present and reserved: the status line must never reflow
+                the lane chips when a filter is selected. */}
+            <span className={`role-count${activeRole === "ALL" ? " is-idle" : ""}`} role="status">
+              {focusLabel}
+            </span>
+          </div>
         ) : (
           <span className="role-count">{staff.length} COACHING STAFF</span>
         )}
