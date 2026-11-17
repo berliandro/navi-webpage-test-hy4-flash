@@ -1,6 +1,8 @@
 # AGENTS.md
 
-A Next.js 16 fan/team website for NAVI MPL ID. The retired UI/UX portfolio identity has been replaced by the **Cut-and-Sew Jersey** Persuade world: one panelled garment carries the team identity and a player print, a woven tag lists the verified line-up, and a stitched care label is the only route to the shop. The site informs fans and sends them to real merchandise on the seller's own site; there is no in-site checkout.
+A Next.js 16 fan/team website **specific to NAVI MPL ID Season 18**. Every roster fact, fixture, award and statistic here belongs to MPL ID S18; the next season is a **new, separate project** with the same team. Do not add later-season data here.
+
+The retired UI/UX portfolio identity has been replaced by the **Cut-and-Sew Jersey** Persuade world: one panelled garment carries the team identity and a player print, a woven tag lists the verified line-up, and a stitched care label is the only route to the shop. The site informs fans and sends them to real merchandise on the seller's own site; there is no in-site checkout.
 
 ## Agent skill
 

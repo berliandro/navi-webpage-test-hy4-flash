@@ -1,6 +1,8 @@
 # Transition plan — NAVI MPL ID portfolio → live fan/team site
 
-Status: **planning only.** This pass changed no code, no visual design, no `DESIGN.md`, no design sidecar and no assets. It only updates the plan artifacts (`PRODUCT.md`, `.impeccable/surfaces/app-page.md`, this file).
+**Season scope:** this repository is the **MPL ID Season 18** edition. It is complete and deployed as the S18 fan hub; a new season will be a separate project with the same team, not a continuation of this one. Do not merge later-season facts into it.
+
+Status: the transition below has been executed — the fan hub, the Cut-and-Sew Jersey visual world, the sourced merchandise directory and the GitHub static export are shipped. This file is retained as the record of the decisions.
 
 ## Confirmed identity decisions
 

@@ -4,9 +4,9 @@ import { asset, route } from "./assetPath";
 import PressFeedback from "./PressFeedback";
 import AmbientMotion from "./AmbientMotion";
 
-const siteTitle = "NAVI MPL ID — Team & Merchandise";
+const siteTitle = "NAVI MPL ID — Season 18 Fan Hub";
 const siteDescription =
-  "Follow the NAVI Mobile Legends: Bangbang Professional League Indonesia squad: verified roster, results and titles, plus a directory of real team merchandise.";
+  "The NAVI Mobile Legends: Bangbang Professional League Indonesia Season 18 fan hub: verified roster, results and titles, plus a directory of real team merchandise.";
 
 export const metadata: Metadata = {
   // Relative og:image URLs resolve against this base. The default is the local
@@ -20,13 +20,13 @@ export const metadata: Metadata = {
     title: siteTitle,
     description: siteDescription,
     url: route("/"),
-    siteName: "NAVI MPL ID Fan Hub",
+    siteName: "NAVI MPL ID Season 18 Fan Hub",
     images: [
       {
         url: asset("/og-card.png"),
         width: 1200,
         height: 630,
-        alt: "NAVI MPL ID roster, results and merchandise",
+        alt: "NAVI MPL ID Season 18 roster, results and merchandise",
       },
     ],
   },

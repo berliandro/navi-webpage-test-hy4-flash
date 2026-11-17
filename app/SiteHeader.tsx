@@ -29,7 +29,7 @@ export default function SiteHeader({ active }: { active: string }) {
         <span className="brand-text">
           <span className="brand-name">NAVI</span>
           <span className="brand-sub">MPL ID</span>
-          <span className="brand-credit">Fan hub · MPL Indonesia</span>
+          <span className="brand-credit">Fan hub · MPL ID S18</span>
         </span>
       </a>
       <nav className="nav-links" aria-label="Primary">

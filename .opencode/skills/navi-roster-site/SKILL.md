@@ -17,6 +17,7 @@ Use this skill at the start of any substantive task here, and again when a build
 
 ## Non-negotiables
 
+- **This project is the NAVI MPL ID Season 18 edition only.** All roster, fixture, award and stat facts are S18; a new season is a new, separate project with the same team. Never merge later-season data, claims or visuals into this repository — see `PRODUCT.md`.
 - **Verify content before shipping it.** Roster, fixtures, awards and stats come only from the sources named in `references/content-and-assets.md`. Merchandise comes only from `public/assets/merch/PROVENANCE.md`. Never invent jersey numbers, metrics, products, seller URLs or endorsements. If a figure is derived (e.g. the hexagon geometry), label the published value and explain the derivation.
 - **The replacement world is locked: the Cut-and-Sew Jersey.** The user chose it from the `concept-seed --scope direction --mode persuade` roll (`seed:7d5bf508817409da`), recorded as the six-block contract in `.impeccable/surfaces/app-page.md`. Build that world, not the retired Experience reskin and not a new ad-hoc look. For a future direction change, run the roll again and let the user lock a direction before any visual code changes.
 - **Merge, do not overwrite, verified content.** Keep every verified roster/fixture/award/stat fact. Replace only the visual world and the portfolio framing.
