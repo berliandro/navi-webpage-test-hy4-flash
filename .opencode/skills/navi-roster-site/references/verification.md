@@ -31,12 +31,12 @@ $impeccable = "$env:USERPROFILE\.config\opencode\skills\impeccable\scripts\impec
 & $impeccable detect --json `
   'app/page.tsx' 'app/MediaImage.tsx' 'app/layout.tsx' 'app/SiteHeader.tsx' `
   'app/SubPage.tsx' 'app/globals.css' 'app/matches/page.tsx' 'app/titles/page.tsx' `
-  'app/media/page.tsx' 'app/shop/page.tsx' 'app/design-notes/page.tsx'
+  'app/media/page.tsx' 'app/shop/page.tsx'
 
 & $impeccable doctor --json
 ```
 
-Clean = `[]` for the detector and `"findings": []` for doctor. Pass markup files; a CSS-only list undercounts. The launcher may print an "engine unknown / pins 0.1.24" warning — it still runs. A full rendered scan needs Chrome on `--remote-debugging-port` and `detect --cdp`. When `/design-notes` is retired in the fan-site build, drop it from the list; `/shop` is already included.
+Clean = `[]` for the detector and `"findings": []` for doctor. Pass markup files; a CSS-only list undercounts. The launcher may print an "engine unknown / pins 0.1.24" warning — it still runs. A full rendered scan needs Chrome on `--remote-debugging-port` and `detect --cdp`. `/design-notes` is retired; `/shop` is included. The detector also checks literal font sizes against the `DESIGN.md` typography ramp — tokenize them in `:root` or document every size.
 
 ## Serve and health-check
 
@@ -60,40 +60,37 @@ Both must be 200. If the document is 200 but the chunk is 500/000, the server is
 
 ## GitHub static export
 
-The delivery target is a copy-paste deployable folder, not a live host. Add `next.config.ts` with `output: "export"`, `basePath` from `NEXT_PUBLIC_BASE_PATH`, `images: { unoptimized: true }` and `trailingSlash: true`; the app already uses plain `<img>` tags, so images need no loader.
+The delivery target is a copy-paste deployable folder, not a live host. Add `next.config.ts` with `output: "export"`, `basePath` from `NEXT_PUBLIC_BASE_PATH`, `images: { unoptimized: true }` and `trailingSlash: true`; the app already uses plain `<img>` tags, so images need no loader. `basePath` rewrites Next's own chunks only — every image and metadata URL must go through `asset()` from `app/assetPath.ts`, and `prebuild` injects the base path into the self-hosted font URL. Otherwise the page loads styled but all cutouts fall back to monograms.
 
 ```powershell
-$env:NEXT_PUBLIC_BASE_PATH = "/YOUR-REPO-NAME"   # omit for a custom domain / root
-npm run build
+$env:NEXT_PUBLIC_BASE_PATH = "/mlbb-team-fanpage"   # omit for a custom domain / root
+npm run build                                       # runs prebuild automatically
 New-Item -ItemType File -Path 'out\.nojekyll' -Force
-python -m http.server 3200 --directory out
+# serve the export under the same prefix via a junction (Windows)
+$preview = "$env:TEMP\opencode\static-preview"
+New-Item -ItemType Directory -Force -Path $preview | Out-Null
+New-Item -ItemType Junction -Path "$preview\mlbb-team-fanpage" -Target (Resolve-Path 'out').Path -Force | Out-Null
+python -m http.server 3200 --directory $preview
 ```
 
-Verify the static result the same way (page and CSS chunk 200). `next start` does **not** work once `output: "export"` is set; use the static server above. Leave the real repo URL to the buyer — do not invent one.
+Verify `http://localhost:3200/mlbb-team-fanpage/` plus its CSS chunk, `assets/players/joshuaa.webp`, `assets/brand/team-logo.png`, `fonts/archivo-latin.woff2`, a merch image and `shop/` all return 200. `next start` does **not** work once `output: "export"` is set; use the static server above. Leave the real repo URL to the buyer — do not invent one.
 
 ## Screenshots
 
-Use the Playwright MCP tool through code mode. Screenshot paths are relative to the workspace:
+Use the Playwright MCP tools through code mode (no `browser_run_code_unsafe` in this harness). Paths are relative to the workspace; the static-export preview needs the repo prefix:
 
 ```js
-await tools.playwright.browser_run_code_unsafe({ code: `
-async (page) => {
-  await page.goto('http://127.0.0.1:3200/');
-  await page.setViewportSize({ width: 1440, height: 810 });
-  await page.waitForTimeout(1500);
-  await page.screenshot({ path: '.impeccable/review/desktop.png', fullPage: true, scale: 'css' });
-  await page.setViewportSize({ width: 390, height: 844 });
-  await page.goto('http://127.0.0.1:3200/');
-  await page.waitForTimeout(1500);
-  await page.screenshot({ path: '.impeccable/review/mobile.png', fullPage: true, scale: 'css' });
-  return await page.evaluate(() => ({
-    overflow: document.documentElement.scrollWidth > innerWidth,
-    proofBottom: Math.round(document.querySelector('.proof')?.getBoundingClientRect().bottom ?? -1)
-  }));
-}` });
+const url = "http://127.0.0.1:3200/mlbb-team-fanpage/";
+await tools.playwright.browser_navigate({ url });
+await tools.playwright.browser_resize({ width: 1440, height: 810 });
+await tools.playwright.browser_take_screenshot({ filename: ".impeccable/review/desktop.png", scale: "css" });
+await tools.playwright.browser_resize({ width: 390, height: 844 });
+await tools.playwright.browser_take_screenshot({ filename: ".impeccable/review/mobile.png", scale: "css" });
+const fold = await tools.playwright.browser_evaluate({ function:
+  "() => ({ proofBottom: Math.round(document.querySelector('.hem').getBoundingClientRect().bottom), viewportH: innerHeight })" });
 ```
 
-Read the PNGs with the image reader before judging. Re-capture after fixes; do not reuse a pre-fix screenshot.
+Wait for the image fade-in before judging the bench prints: a freshly captured `loaded` image can still compute `opacity: 0` during its 460ms transition. Read the PNGs with the image reader before judging. Re-capture after fixes; do not reuse a pre-fix screenshot. The phone proof strip must end above 844px.
 
 The MCP session is shared with other agents. Always `goto` explicitly and read `page.url()` if a capture looks wrong. The in-app browser screenshot path fails when its tab is not visible; Playwright does not have that limit.
 
