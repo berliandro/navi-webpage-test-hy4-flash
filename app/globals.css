@@ -275,7 +275,7 @@ a { color: inherit; }
 }
 
 /* The identity is heat-pressed into the off-white panel, clear of the print. */
-.chest-copy { position: absolute; top: 4%; left: 6%; z-index: 4; max-width: 40%; color: var(--on-white); }
+.chest-copy { position: absolute; top: 4%; left: 6%; z-index: 4; max-width: 36%; color: var(--on-white); }
 .chest-name {
   margin: 0;
   font-size: var(--type-step-22);
@@ -318,10 +318,10 @@ a { color: inherit; }
 /* the featured cutout is a print on the cloth */
 .print {
   position: absolute;
-  left: 52%;
-  top: 9%;
-  width: 36%;
-  height: 80%;
+  left: 60%;
+  top: 4%;
+  width: 46%;
+  height: 94%;
   transform: translateX(-50%);
   z-index: 5;
   touch-action: pan-y;
@@ -1126,7 +1126,7 @@ img[data-hydrated="true"][data-media-state="loaded"] { opacity: 1; transition: o
   .jersey { display: block; height: auto; }
   .chest { height: 54vh; min-height: 380px; }
   .chest-copy { left: 6%; max-width: 42%; }
-  .print { left: 52%; width: 44%; height: 86%; }
+  .print { left: 58%; width: 50%; height: 92%; }
   .print-bench { left: 2%; bottom: 2%; }
   .print-card { width: clamp(56px, 13vw, 84px); height: clamp(92px, 20vw, 130px); }
   .feature-nav { right: 0; top: 38%; }
@@ -1159,10 +1159,10 @@ img[data-hydrated="true"][data-media-state="loaded"] { opacity: 1; transition: o
   .tab, .stats-toggle, .filter { padding: 0.45rem 0.5rem; letter-spacing: 0.1em; }
   .topbar { margin-bottom: 0.6rem; }
   .seam-controls { margin-bottom: 0.7rem; }
-  .chest { height: 34vh; min-height: 270px; }
-  .chest-copy { left: 6%; max-width: 44%; top: 3%; }
+  .chest { height: 38vh; min-height: 300px; }
+  .chest-copy { left: 6%; max-width: 34%; top: 3%; }
   .chest-name { font-size: var(--type-step-20); }
-  .print { left: 50%; top: 22%; width: 62%; height: 78%; }
+  .print { left: 60%; top: 20%; width: 68%; height: 80%; }
   .print-handle { font-size: var(--type-step-18); }
   .print-name { width: 128%; bottom: 4%; }
   .hero-hint { display: none; }
