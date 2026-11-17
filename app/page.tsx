@@ -218,7 +218,7 @@ function easeOutCraft(t: number): number {
 // every published figure legible while dropping the spatial movement. An
 // in-flight morph interrupted by a new selection resumes from the frame it was
 // on, so rapid cycling never snaps or stacks animations.
-function useTweenedHex(target: number[]): number[] {
+function useTweenedHex(target: number[], hidden = false): number[] {
   const [display, setDisplay] = useState(target);
   const current = useRef(target);
   const raf = useRef<number | null>(null);
@@ -231,6 +231,9 @@ function useTweenedHex(target: number[]): number[] {
       window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const from = current.current;
     if (
+      // A hidden readout has no visible geometry to morph: skip the rAF loop
+      // and its per-frame React renders until the sheet is actually open.
+      hidden ||
       reduce ||
       from.length !== target.length ||
       from.every((v, i) => v === target[i])
@@ -256,7 +259,7 @@ function useTweenedHex(target: number[]): number[] {
     // `target` is a fresh array each render; `targetKey` is its stable value
     // signature, which is the only thing that should restart the morph.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [targetKey]);
+  }, [targetKey, hidden]);
 
   return display;
 }
@@ -354,7 +357,7 @@ function StatsPanel({
   const targetValues = statAxes.map((axis) =>
     stats ? axisValue(stats, axis.key) / statMax[axis.key] : 0,
   );
-  const values = useTweenedHex(targetValues);
+  const values = useTweenedHex(targetValues, hidden);
   return (
     <section
       className="stats-panel"
@@ -454,6 +457,34 @@ export default function Page() {
     };
     window.addEventListener("blur", clear);
     return () => window.removeEventListener("blur", clear);
+  }, []);
+
+  // Decode the small cutout set once while the browser is idle. The first few
+  // featured swaps otherwise pay a 100-260ms image decode during interaction.
+  useEffect(() => {
+    type IdleWindow = Window & {
+      requestIdleCallback?: (cb: () => void, opts?: { timeout: number }) => number;
+      cancelIdleCallback?: (id: number) => void;
+    };
+    const w = window as IdleWindow;
+    let cancelled = false;
+    let index = 0;
+    const decodeOne = () => {
+      if (cancelled || index >= players.length) return;
+      const image = new Image();
+      image.src = asset(players[index].img);
+      index += 1;
+      void image.decode?.().catch(() => {});
+      schedule();
+    };
+    const schedule = () => {
+      if (w.requestIdleCallback) w.requestIdleCallback(decodeOne, { timeout: 2500 });
+      else window.setTimeout(decodeOne, 180);
+    };
+    schedule();
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   // Every close path hands focus back to the STATS toggle: the readout is a

@@ -61,6 +61,7 @@ Use this skill at the start of any substantive task here, and again when a build
 | Nav links Matches/Titles/Media/Shop 404; page title is "Error response" | Raw `<a href="/matches">` bypasses `basePath` — Next only rewrites its own chunks and `next/link`, not plain anchors | Use `route()` from `app/assetPath.ts` (basePath + trailing slash) for every internal link, including brand, care label and media-page image sources; run `npm run check:links` on `out/`. |
 | Some merch cards link to dead Shopee URLs | Provenance URLs contain literal `(` `)`; a `[^)]+` regex truncated them | Parse markdown links greedily through the final `)` (`/\]\((https?:\/\/.*)\)\s*$/`), regenerate `app/merch.ts`, assert every Shopee URL carries its `-i.<shop>.<item>` id. |
 | Decorative seam/piping is a stray slash or invisible | Absolutely positioned children of a `display:grid` container become grid items without `position:absolute` | Add `position:absolute` to seam/piping overlays and verify their bounding boxes from the live page. |
+| Idle page runs at ~13 FPS; trace shows heavy Paint/Raster and image-decode tasks | Ambient `background-position` animation repaints large `clip-path` cloth panels every frame; featured cutout remount decodes on interaction | Put the weave on a pseudo-element layer and animate `transform` with `alternate`; pre-decode the seven cutouts one per `requestIdleCallback`; skip the hidden stats tween. Verify with `browser.trace.analyze`: long tasks and blocking ms must drop under identical 20-cycle scripts. |
 
 ## Playbooks
 

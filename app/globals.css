@@ -259,21 +259,31 @@ a { color: inherit; }
 .cloth--white {
   left: 0;
   width: 46%;
-  background: var(--weave-light), var(--cloth-white);
+  background: var(--cloth-white);
   clip-path: polygon(0 0, 84% 0, 100% 100%, 0 100%);
-  /* The grain shifts exactly one 4px weave tile, so the loop has no seam. */
-  animation: weave-drift 14s linear infinite;
 }
 .cloth--black {
   right: 0;
   width: 64%;
-  background: var(--weave), radial-gradient(ellipse 70% 90% at 60% 40%, var(--cloth-black-2), var(--cloth-black) 74%);
+  background: radial-gradient(ellipse 70% 90% at 60% 40%, var(--cloth-black-2), var(--cloth-black) 74%);
   clip-path: polygon(6% 0, 100% 0, 100% 100%, 0 100%);
-  animation: weave-drift 18s linear infinite reverse;
 }
+/* The grain lives on its own composited layer: a transform moves the weave
+   instead of repainting the whole clipped panel every frame. Alternate reverses
+   before the loop closes, so there is no cut. */
+.cloth::after {
+  content: "";
+  position: absolute;
+  inset: -6px 0 -6px -6px;
+  pointer-events: none;
+  will-change: transform;
+  animation: weave-drift 14s linear infinite alternate;
+}
+.cloth--white::after { background: var(--weave-light); }
+.cloth--black::after { background: var(--weave); animation-direction: alternate-reverse; animation-duration: 18s; }
 @keyframes weave-drift {
-  from { background-position: 0 0, 0 0; }
-  to { background-position: 4px 0, 0 0; }
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(6px, 0, 0); }
 }
 .stitch--shoulder {
   position: absolute;
@@ -318,8 +328,8 @@ a { color: inherit; }
 /* Nonessential loops stop while the tab is hidden. */
 html[data-motion="paused"] .piping::before,
 html[data-motion="paused"] .piping::after,
-html[data-motion="paused"] .cloth--white,
-html[data-motion="paused"] .cloth--black {
+html[data-motion="paused"] .cloth--white::after,
+html[data-motion="paused"] .cloth--black::after {
   animation-play-state: paused;
 }
 /* The thread catches the heat of the press once, then settles. */
@@ -1381,8 +1391,9 @@ img[data-hydrated="true"][data-media-state="loaded"] { opacity: 1; transition: o
     animation: motion-fade 140ms linear both !important;
   }
   .print-plate, .print-name, .print-name[data-dir="-1"], .print-role, .piping,
-  .piping::before, .piping::after, .cloth--white, .cloth--black {
+  .piping::before, .piping::after, .cloth--white::after, .cloth--black::after {
     animation: none !important;
+    will-change: auto;
   }
   /* The piping keeps its static lit glow; nothing drifts or loops. */
   .piping::before, .piping::after { display: none; }
