@@ -156,6 +156,7 @@ Corners are squared at 2px (`--radius-seam`) — garment hardware, not soft card
 - Selected: yellow fill with ink text; filter active state is yellow text on a yellow wash.
 - Stats toggle keeps a dashed border and a hairline divider so it reads as an instrument, not a third tab.
 - The focus-count status sits in a reserved line directly beneath the filter chips, not beside them in the control row. It is always in the layout (hidden when no lens is active), so selecting a lens never reflows or re-centres the lane chips.
+- Every control shares one press cue: a 260ms depression to 0.955 scale on the same ease-out, then a confident release. It fires for pointer and keyboard activation and never stacks under repeated presses. Reduced motion replaces it with a 140ms opacity beat.
 
 ### Featured print
 - A transparent official player cutout at full height on the cloth, with the handle across its lower third and a one-word role beneath.

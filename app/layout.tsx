@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { asset } from "./assetPath";
+import PressFeedback from "./PressFeedback";
 
 const siteTitle = "NAVI MPL ID — Team & Merchandise";
 const siteDescription =
@@ -49,7 +50,10 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <PressFeedback />
+        {children}
+      </body>
     </html>
   );
 }
