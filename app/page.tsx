@@ -178,6 +178,15 @@ const statMax = Object.fromEntries(
   ]),
 ) as Record<(typeof statAxes)[number]["key"], number>;
 
+// The reference shown in a vertex tooltip is the published maximum across the
+// same Season 18 table — never a hand-written example.
+const publishedMax = Object.fromEntries(
+  statAxes.map((axis) => [
+    axis.key,
+    Math.max(...Object.values(seasonStats).map((s) => axis.raw(s))),
+  ]),
+) as Record<(typeof statAxes)[number]["key"], number>;
+
 function hexPoint(index: number, radius: number, cx = 100, cy = 100) {
   const angle = (-90 + index * 60) * (Math.PI / 180);
   return { x: cx + Math.cos(angle) * radius, y: cy + Math.sin(angle) * radius };
@@ -358,6 +367,10 @@ function StatsPanel({
     stats ? axisValue(stats, axis.key) / statMax[axis.key] : 0,
   );
   const values = useTweenedHex(targetValues, hidden);
+  const [activeAxis, setActiveAxis] = useState<number | null>(null);
+  useEffect(() => {
+    setActiveAxis(null);
+  }, [player.id, hidden]);
   return (
     <section
       className="stats-panel"
@@ -388,7 +401,7 @@ function StatsPanel({
         <>
           <span className="stats-shape-note" aria-hidden="true">Shape · not a score</span>
           <div className="stats-hex-frame">
-          <svg className="stats-hex" viewBox="0 0 200 200" role="img" aria-label={`Six-axis statistics hexagon for ${player.handle}`}>
+          <svg className="stats-hex" viewBox="0 0 200 200" role="group" aria-label={`Six-axis statistics hexagon for ${player.handle}`}>
             {[0.33, 0.66, 1].map((ring) => (
               <polygon
                 key={ring}
@@ -402,12 +415,80 @@ function StatsPanel({
             })}
             <g className="stats-current" key={player.id}>
               <polygon className="stats-shape" points={polygonFor(values)} />
-              {values.map((v, i) => {
-                const p = hexPoint(i, v * 66);
-                return <circle key={i} className="stats-dot" cx={p.x} cy={p.y} r={3.6} />;
-              })}
             </g>
+            {statAxes.map((axis, i) => {
+              const anchor = hexPoint(i, 66);
+              const point = hexPoint(i, (values[i] ?? 0) * 66);
+              const currentText = axis.format(axis.raw(stats));
+              const maxText = axis.format(publishedMax[axis.key]);
+              const isActive = activeAxis === i;
+              return (
+                <g
+                  key={axis.key}
+                  className={`stats-axis${isActive ? " is-active" : ""}`}
+                  role="button"
+                  tabIndex={0}
+                  aria-label={`${axis.label}: ${currentText}. Team maximum ${maxText}.`}
+                  onPointerEnter={(event) => {
+                    if (event.pointerType !== "touch") setActiveAxis(i);
+                  }}
+                  onPointerLeave={(event) => {
+                    if (event.pointerType !== "touch") setActiveAxis(null);
+                  }}
+                  onPointerDown={(event) => {
+                    event.stopPropagation();
+                    setActiveAxis(isActive && event.pointerType === "touch" ? null : i);
+                  }}
+                  onFocus={() => setActiveAxis(i)}
+                  onBlur={() => setActiveAxis(null)}
+                  onKeyDown={(event) => {
+                    if (event.key === "Enter" || event.key === " ") {
+                      event.preventDefault();
+                      setActiveAxis(isActive ? null : i);
+                    }
+                  }}
+                >
+                  <circle className="stats-axis-hit" cx={anchor.x} cy={anchor.y} r={11} />
+                  <circle className="stats-dot" cx={point.x} cy={point.y} r={isActive ? 5.2 : 3.6} />
+                </g>
+              );
+            })}
           </svg>
+          {statAxes.map((axis, i) => {
+            const labelPoint = hexPoint(i, 88);
+            return (
+              <span
+                key={axis.key}
+                className="stats-axis-label"
+                style={{ left: `${labelPoint.x / 2}%`, top: `${labelPoint.y / 2}%` }}
+                aria-hidden="true"
+              >
+                {axis.label}
+              </span>
+            );
+          })}
+          {activeAxis !== null && (
+            <div
+              className={`stats-tip${
+                hexPoint(activeAxis, 66).y < 70 ? " tip-below" : hexPoint(activeAxis, 66).y > 130 ? " tip-above" : ""
+              }${
+                hexPoint(activeAxis, 66).x < 70 ? " tip-right" : hexPoint(activeAxis, 66).x > 130 ? " tip-left" : ""
+              }`}
+              style={{
+                left: `${hexPoint(activeAxis, 66).x / 2}%`,
+                top: `${hexPoint(activeAxis, 66).y / 2}%`,
+              }}
+              role="status"
+            >
+              <span className="stats-tip-label">{statAxes[activeAxis].label}</span>
+              <strong className="stats-tip-value">
+                {statAxes[activeAxis].format(statAxes[activeAxis].raw(stats))}
+              </strong>
+              <span className="stats-tip-max">
+                max {statAxes[activeAxis].format(publishedMax[statAxes[activeAxis].key])}
+              </span>
+            </div>
+          )}
           </div>
           <dl className="stats-values">
             {statAxes.map((axis) => (

@@ -833,7 +833,72 @@ img[data-hydrated="true"][data-media-state="loaded"] { opacity: 1; transition: o
 }
 /* Ink carries the shape on cream; yellow is the signal inside it. */
 .stats-shape { fill: var(--on-white); fill-opacity: 0.9; stroke: var(--on-white); stroke-width: 4; }
-.stats-dot { fill: var(--thread); stroke: var(--on-white); stroke-width: 1.2; }
+.stats-dot {
+  fill: var(--thread);
+  stroke: var(--on-white);
+  stroke-width: 1.2;
+  transition: r 150ms var(--ease), fill 150ms var(--ease);
+}
+.stats-ring, .stats-spoke, .stats-current, .stats-shape { pointer-events: none; }
+.stats-axis { cursor: pointer; outline: none; }
+.stats-axis-hit { fill: transparent; pointer-events: all; }
+.stats-axis.is-active .stats-dot { fill: var(--thread); stroke: var(--on-white); stroke-width: 1.6; }
+.stats-axis:focus-visible .stats-dot { stroke: var(--thread); stroke-width: 2.4; }
+.stats-axis-label {
+  position: absolute;
+  z-index: 2;
+  transform: translate(-50%, -50%);
+  max-width: 64px;
+  font-size: var(--type-step-04);
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  line-height: 1.25;
+  text-align: center;
+  text-transform: uppercase;
+  color: var(--on-white);
+  pointer-events: none;
+}
+.stats-tip {
+  position: absolute;
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  min-width: 118px;
+  padding: 0.45rem 0.6rem;
+  background: var(--cloth-white);
+  border: 1px solid var(--on-white);
+  box-shadow: var(--shadow-stitch);
+  transform: translate(-50%, -118%);
+  pointer-events: none;
+  animation: stats-tip-in 170ms var(--ease) both;
+}
+.stats-tip.tip-below { transform: translate(-50%, 18%); }
+.stats-tip.tip-above { transform: translate(-50%, -118%); }
+.stats-tip.tip-left { transform: translate(-100%, -50%); }
+.stats-tip.tip-right { transform: translate(0, -50%); }
+.stats-tip-label {
+  font-size: var(--type-step-03);
+  font-weight: 900;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--on-white-soft);
+}
+.stats-tip-value {
+  font-size: var(--type-step-15);
+  font-weight: 900;
+  font-variant-numeric: tabular-nums;
+  color: var(--on-white);
+}
+.stats-tip-max {
+  font-size: var(--type-step-03);
+  font-weight: 700;
+  color: var(--on-white-soft);
+}
+@keyframes stats-tip-in {
+  from { opacity: 0; filter: blur(2px); }
+  to { opacity: 1; filter: blur(0); }
+}
 .stats-values {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -1338,6 +1403,28 @@ img[data-hydrated="true"][data-media-state="loaded"] { opacity: 1; transition: o
     border-top: 0;
   }
   .stats-source { line-height: 1.3; }
+  /* On phones the square glyph is small: park the tooltip in the dedicated
+     row below it instead of covering the shape and its labels. */
+  .stats-tip {
+    left: 50% !important;
+    top: 100% !important;
+    transform: translate(-50%, 0) !important;
+    flex-direction: row;
+    align-items: baseline;
+    gap: 0.35rem;
+    min-width: 0;
+    width: max-content;
+    padding: 0.2rem 0.4rem;
+  }
+  .stats-tip::before {
+    content: "";
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    width: 1px;
+    height: 6px;
+    background: var(--on-white);
+  }
   .staff-lineup { position: relative; inset: auto; grid-template-columns: 1fr; }
   .page-wrap { padding-top: clamp(2rem, 7vh, 3.5rem); }
   .page-stage .topbar { top: auto; }
