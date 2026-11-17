@@ -1,4 +1,4 @@
-:HL["/mlbb-team-fanpage/_next/static/chunks/11g2x45jdgyvl.css","style"]
+:HL["/navi-webpage-test-hy4-flash/_next/static/chunks/0mgj_pm8kxxsh.css","style"]
 2:[["children",{"s":"__PAGE__","h":160}]]
 1:[["children",{"s":"media","h":96,"c":"$Q2"}]]
-0:{"b":"CawSSBWpsBr9E0pZ8b2BB","t":{"t":{"s":"","h":80,"c":"$Q1"}}}
+0:{"b":"5kyZ8Ku-X5AxbYE77oevT","t":{"t":{"s":"","h":80,"c":"$Q1"}}}

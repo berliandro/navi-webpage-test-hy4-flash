@@ -57,7 +57,7 @@ Use this skill at the start of any substantive task here, and again when a build
 | A subagent's report and the files disagree | Concurrent writers | Treat the files and a fresh build as truth; re-read before editing, use targeted `edit` calls, verify the merged result. |
 | `opencode` is not on PATH | Desktop install | CLI: `%LOCALAPPDATA%\Programs\ai.opencode.desktop\resources\opencode-cli.exe` (v2.3.0). |
 | No git commands work before initialization | Fresh workspaces may have no `.git` | Verify with `Test-Path .git`; initialize with `git init -b main`, add the provided remote, commit, push, then confirm with `git ls-remote origin`. |
-| Static export at `/mlbb-team-fanpage/` loads CSS but images/fonts 404 | `basePath` rewrites Next chunks only, not literal `/assets/...` or `/fonts/...` URLs | Use `asset()` for all image/metadata URLs and a `prebuild` step that injects the base path into the font URL; verify prefixed asset URLs return 200. |
+| Static export at `/navi-webpage-test-hy4-flash/` loads CSS but images/fonts 404 | `basePath` rewrites Next chunks only, not literal `/assets/...` or `/fonts/...` URLs | Use `asset()` for all image/metadata URLs and a `prebuild` step that injects the base path into the font URL; verify prefixed asset URLs return 200. |
 | Some merch cards link to dead Shopee URLs | Provenance URLs contain literal `(` `)`; a `[^)]+` regex truncated them | Parse markdown links greedily through the final `)` (`/\]\((https?:\/\/.*)\)\s*$/`), regenerate `app/merch.ts`, assert every Shopee URL carries its `-i.<shop>.<item>` id. |
 | Decorative seam/piping is a stray slash or invisible | Absolutely positioned children of a `display:grid` container become grid items without `position:absolute` | Add `position:absolute` to seam/piping overlays and verify their bounding boxes from the live page. |
 
@@ -71,7 +71,7 @@ Use this skill at the start of any substantive task here, and again when a build
 
 **Asset refresh.** Follow the browser-canvas → `window.name` → local POST recipe in `references/content-and-assets.md`; transcode with `ffmpeg -pix_fmt bgra` for alpha; record source URL and conversion in the correct provenance file.
 
-**GitHub static export.** Add `next.config.ts` with `output: "export"`, `basePath` from `NEXT_PUBLIC_BASE_PATH`, `images.unoptimized` and `trailingSlash`. Prefix every asset URL with `asset()` and inject the base path into the font URL in `prebuild`; rebuild with `NEXT_PUBLIC_BASE_PATH=/mlbb-team-fanpage`, create `out/.nojekyll`, and verify `out/` with a static server under that prefix (page, CSS, images, font, `shop/`). Do not invent a repo URL — use the one the user supplies.
+**GitHub static export.** Add `next.config.ts` with `output: "export"`, `basePath` from `NEXT_PUBLIC_BASE_PATH`, `images.unoptimized` and `trailingSlash`. Prefix every asset URL with `asset()` and inject the base path into the font URL in `prebuild`; rebuild with `NEXT_PUBLIC_BASE_PATH=/navi-webpage-test-hy4-flash`, create `out/.nojekyll`, and verify `out/` with a static server under that prefix (page, CSS, images, font, `shop/`). Do not invent a repo URL — use the one the user supplies.
 
 **Impeccable refinement cycle.** Run `context` once per session, then follow `references/impeccable-workflow.md`. Critique needs two isolated assessment subagents; apply its fixes, then re-run build/detector/doctor and capture fresh screenshots. Do not record a `build-phase finish` state that never ran.
 

@@ -63,24 +63,24 @@ Both must be 200. If the document is 200 but the chunk is 500/000, the server is
 The delivery target is a copy-paste deployable folder, not a live host. Add `next.config.ts` with `output: "export"`, `basePath` from `NEXT_PUBLIC_BASE_PATH`, `images: { unoptimized: true }` and `trailingSlash: true`; the app already uses plain `<img>` tags, so images need no loader. `basePath` rewrites Next's own chunks only — every image and metadata URL must go through `asset()` from `app/assetPath.ts`, and `prebuild` injects the base path into the self-hosted font URL. Otherwise the page loads styled but all cutouts fall back to monograms.
 
 ```powershell
-$env:NEXT_PUBLIC_BASE_PATH = "/mlbb-team-fanpage"   # omit for a custom domain / root
+$env:NEXT_PUBLIC_BASE_PATH = "/navi-webpage-test-hy4-flash"   # omit for a custom domain / root
 npm run build                                       # runs prebuild automatically
 New-Item -ItemType File -Path 'out\.nojekyll' -Force
 # serve the export under the same prefix via a junction (Windows)
 $preview = "$env:TEMP\opencode\static-preview"
 New-Item -ItemType Directory -Force -Path $preview | Out-Null
-New-Item -ItemType Junction -Path "$preview\mlbb-team-fanpage" -Target (Resolve-Path 'out').Path -Force | Out-Null
+New-Item -ItemType Junction -Path "$preview\navi-webpage-test-hy4-flash" -Target (Resolve-Path 'out').Path -Force | Out-Null
 python -m http.server 3200 --directory $preview
 ```
 
-Verify `http://localhost:3200/mlbb-team-fanpage/` plus its CSS chunk, `assets/players/joshuaa.webp`, `assets/brand/team-logo.png`, `fonts/archivo-latin.woff2`, a merch image and `shop/` all return 200. `next start` does **not** work once `output: "export"` is set; use the static server above. Leave the real repo URL to the buyer — do not invent one.
+Verify `http://localhost:3200/navi-webpage-test-hy4-flash/` plus its CSS chunk, `assets/players/joshuaa.webp`, `assets/brand/team-logo.png`, `fonts/archivo-latin.woff2`, a merch image and `shop/` all return 200. `next start` does **not** work once `output: "export"` is set; use the static server above. Leave the real repo URL to the buyer — do not invent one.
 
 ## Screenshots
 
 Use the Playwright MCP tools through code mode (no `browser_run_code_unsafe` in this harness). Paths are relative to the workspace; the static-export preview needs the repo prefix:
 
 ```js
-const url = "http://127.0.0.1:3200/mlbb-team-fanpage/";
+const url = "http://127.0.0.1:3200/navi-webpage-test-hy4-flash/";
 await tools.playwright.browser_navigate({ url });
 await tools.playwright.browser_resize({ width: 1440, height: 810 });
 await tools.playwright.browser_take_screenshot({ filename: ".impeccable/review/desktop.png", scale: "css" });

@@ -11,10 +11,10 @@ Load the `navi-roster-site` skill before substantial work, and when a build fail
 - `npm install` — dependencies (already installed; Node 24).
 - `npm run dev` — dev server on :3000. **HMR websockets fail in this harness** (the proxy returns an invalid upgrade response), so React never hydrates in a browser driven from here. For visual work, run `npm run build`, then `npx next start -p 3200` as separate commands; the production build hydrates and interactions work. PowerShell here has no `&&` operator.
 - `npm run build` — runs `prebuild` (writes `NEXT_PUBLIC_BASE_PATH` into the self-hosted font URL), then TypeScript; the typecheck gate. With `output: "export"` this writes the static site to `out/`.
-- Static hosting needs the repo subpath: set `NEXT_PUBLIC_BASE_PATH=/mlbb-team-fanpage` before building. Every image/metadata URL goes through `asset()` from `app/assetPath.ts`; plain `/assets/...` URLs will 404 under a subpath. `scripts/build-merch.mjs` regenerates `app/merch.ts` from the provenance table.
+- Static hosting needs the repo subpath: set `NEXT_PUBLIC_BASE_PATH=/navi-webpage-test-hy4-flash` before building. Every image/metadata URL goes through `asset()` from `app/assetPath.ts`; plain `/assets/...` URLs will 404 under a subpath. `scripts/build-merch.mjs` regenerates `app/merch.ts` from the provenance table.
 - `.\\.opencode\\skills\\navi-roster-site\\scripts\\verify.ps1` — build + detector + doctor in one pass. A clean run returns `[]` and zero doctor findings.
 - `NEXT_PUBLIC_SITE_URL` — set to the published origin so relative `og:image`/`twitter:image` URLs resolve; defaults to `http://localhost:3200`.
-- `NEXT_PUBLIC_BASE_PATH` — repo subpath for GitHub Pages (`/mlbb-team-fanpage` for the provided repository); leave empty for a custom domain or root deployment. After an export, `out/.nojekyll` must exist.
+- `NEXT_PUBLIC_BASE_PATH` — repo subpath for GitHub Pages (`/navi-webpage-test-hy4-flash` for the provided repository); leave empty for a custom domain or root deployment. After an export, `out/.nojekyll` must exist.
 
 ## Layout / architecture
 
