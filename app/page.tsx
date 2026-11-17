@@ -10,6 +10,7 @@ import {
   type PointerEvent,
 } from "react";
 import MediaImage from "./MediaImage";
+import Selvedge from "./Selvedge";
 import SiteHeader from "./SiteHeader";
 import { asset, route } from "./assetPath";
 
@@ -88,6 +89,43 @@ const players: Player[] = [
     img: "/assets/players/andoryuuu.webp",
   },
 ];
+
+// Verified Season 18 honours only (see AGENTS.md / PRODUCT.md). The runner-up
+// is a team result and therefore belongs to every player; the individual
+// honours are Joshuaa's two awards and Aprho's First Team selection. No ages,
+// jersey numbers or invented tiers are printed on the badges — rarity is
+// carried by the artwork's weight, not by a fabricated rank.
+type AchievementKind = "rookie" | "jungle" | "roam" | "runnerup";
+type Achievement = {
+  id: string;
+  kind: AchievementKind;
+  title: string;
+  detail: string;
+  lead?: boolean;
+};
+
+const individualHonours: Record<string, Achievement[]> = {
+  joshuaa: [
+    { id: "joshuaa-rookie", kind: "rookie", title: "Rookie of the Season", detail: "S18 · Individual", lead: true },
+    { id: "joshuaa-first", kind: "jungle", title: "First Team Jungler", detail: "S18 · Individual" },
+  ],
+  aprho: [
+    { id: "aprho-first", kind: "roam", title: "First Team Roamer", detail: "S18 · Individual", lead: true },
+  ],
+};
+
+function honoursFor(playerId: string): Achievement[] {
+  const runnerUp: Achievement = {
+    id: `${playerId}-runnerup`,
+    kind: "runnerup",
+    title: "S18 Runner-up",
+    detail: "S18 · Team",
+  };
+  // The team runner-up already appears on the chest and proof strip. Where a
+  // player has an individual honour, show only those so the stack stays legible.
+  const individual = individualHonours[playerId];
+  return individual ?? [runnerUp];
+}
 
 const sideIds = ["karss", "aprho", "jiizee", "zeonn"];
 const filters = ["ALL", "JUNGLE", "EXP", "MID", "GOLD", "ROAM"];
@@ -317,6 +355,40 @@ function accentHandle(handle: string): { head: string; tail: string; length: num
 // pairs and combining marks — the same reason the handle accent uses a segmenter.
 function firstGrapheme(value: string): string {
   return value ? graphemes(value)[0] ?? "" : "";
+}
+
+// Four sourced icon glyphs from Game-icons.net by Lorc (CC BY 3.0), recoloured
+// into the Cut-and-Sew system: NAVI-yellow halftone fill, heavy ink outline and
+// a hard block shadow. See public/assets/achievements/PROVENANCE.md.
+const BADGE_ICON: Record<AchievementKind, string> = {
+  rookie: "/assets/achievements/rookie.svg",
+  jungle: "/assets/achievements/jungle.svg",
+  roam: "/assets/achievements/roam.svg",
+  runnerup: "/assets/achievements/runnerup.svg",
+};
+
+function AchievementBadge({ achievement, index }: { achievement: Achievement; index: number }) {
+  return (
+    <li
+      className={`achievement${achievement.lead ? " achievement--lead" : ""}`}
+      style={{ "--i": index } as CSSProperties}
+    >
+      <div className="crest-bar">
+        <strong>{achievement.title}</strong>
+        <small>{achievement.detail}</small>
+      </div>
+      <span className="crest-wrap" aria-hidden="true">
+        <MediaImage
+          src={asset(BADGE_ICON[achievement.kind])}
+          alt=""
+          width={512}
+          height={512}
+          fallbackLabel={achievement.title.slice(0, 1)}
+          className="crest-badge"
+        />
+      </span>
+    </li>
+  );
 }
 
 function SideCard({
@@ -746,6 +818,7 @@ export default function Page() {
 
   return (
     <main className="garment">
+      <Selvedge />
       <h1 className="sr-only">NAVI MPL ID roster</h1>
       <p className="sr-only" role="status" hidden={statsOpen && tab === "players"}>
         {tab === "staff"
@@ -952,6 +1025,12 @@ export default function Page() {
                   <span className="print-role">{featured.role}</span>
                 </div>
               </article>
+
+              <ul className="achievement-stack" key={`honours-${featured.id}`} aria-label="Verified Season 18 achievements">
+                {honoursFor(featured.id).map((achievement, index) => (
+                  <AchievementBadge key={achievement.id} achievement={achievement} index={index} />
+                ))}
+              </ul>
 
               <div className="print-bench" aria-label="Other players">
                 {[farLeft, nearLeft, nearRight, farRight].map((player, index) =>

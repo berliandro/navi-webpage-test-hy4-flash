@@ -1,22 +1,10 @@
 import type { Metadata } from "next";
 import SubPage from "../SubPage";
+import MatchesLedger, { type Match } from "./MatchesLedger";
 
 export const metadata: Metadata = {
   title: "Matches — NAVI MPL ID",
   description: "Verified results from every NAVI match in MPL ID Season 18.",
-};
-
-type Match = {
-  /** Stage as published by the league: "Week 1" … "Week 9" or "Playoffs". */
-  stage: string;
-  /** Day and start time. Kept as published; month names are localized to English for this EN interface. */
-  when: string;
-  /** Opposing team's published abbreviation. */
-  opponent: string;
-  /** Game score with NAVI's tally first, normalized from either listing order. */
-  score: string;
-  /** The league's own WIN / LOSE call for NAVI. */
-  outcome: "WIN" | "LOSE";
 };
 
 // Every row below is transcribed from MPL Indonesia's official NAVI team page
@@ -55,27 +43,7 @@ export default function MatchesPage() {
       title="Matches"
       lede="Every MPL ID Season 18 match NAVI played, with NAVI's score shown first."
     >
-      {matches.length > 0 ? (
-        <div className="ledger ledger--matches" role="list" aria-label="MPL ID Season 18 match results">
-          {matches.map(({ stage, when, opponent, score, outcome }) => (
-            <div
-              className="ledger-row"
-              role="listitem"
-              key={`${stage}-${when}-${opponent}`}
-              aria-label={`${stage}. ${when}. NAVI ${outcome === "WIN" ? "won" : "lost"} ${score.replace("–", " to ")} against ${opponent}.`}
-            >
-              {/* NAVI is named once by the page; the score is already NAVI-first. */}
-              <span className="ledger-main">{score} {opponent}</span>
-              <span className="ledger-meta">{stage} · {when}</span>
-              <span className={`ledger-value ledger-value--${outcome.toLowerCase()}`}>{outcome}</span>
-            </div>
-          ))}
-        </div>
-      ) : (
-        <div className="page-empty" role="status">
-          <p>No verified results are available in this portfolio preview.</p>
-        </div>
-      )}
+      <MatchesLedger matches={matches} />
       <p className="page-note">
         Results are transcribed from the official MPL Indonesia team record. No
         individual player statistics are published for this roster.

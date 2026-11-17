@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import SiteHeader from "./SiteHeader";
+import Selvedge from "./Selvedge";
 
 type SubPageProps = {
   active: string;
@@ -17,6 +18,7 @@ type SubPageProps = {
 export default function SubPage({ active, title, lede, children }: SubPageProps) {
   return (
     <main className="garment page-stage">
+      <Selvedge />
       <SiteHeader active={active} />
       <div className="page-wrap">
         <div className="page-content">

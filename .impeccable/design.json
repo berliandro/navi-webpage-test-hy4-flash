@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-11-17T22:00:00Z",
+  "generatedAt": "2026-11-17T23:50:00Z",
   "title": "Design System: NAVI MPL ID Fan Hub",
   "extensions": {
     "colorMeta": {
@@ -31,7 +31,8 @@
       { "name": "thread-contact", "value": "thread-contact 640ms", "purpose": "One brightness and glow pulse on the yellow piping at the moment of the press." },
       { "name": "ink-set", "value": "ink-set 420ms 110ms / role-set 340ms 200ms", "purpose": "Handle and role arrive after the print, like ink setting on cloth." },
       { "name": "control-press", "value": "scale(1) -> scale(0.955) translateY(1px) -> scale(1), 260ms", "purpose": "Shared tactile press feedback for every button and button-like link; 140ms opacity-only alternative under reduced motion." },
-      { "name": "ambient-garment", "value": "thread-glint 9s linear infinite (two half-cycle-offset glints); weave-drift 14s/18s linear infinite", "purpose": "Seamless at-rest life: soft light along the piping and one-tile weave drift; paused when hidden, disabled under reduced motion." }
+      { "name": "ambient-garment", "value": "thread-glint 9s linear infinite (two half-cycle-offset glints); weave-drift 14s/18s linear infinite", "purpose": "Seamless at-rest life: soft light along the piping and one-tile weave drift; paused when hidden, disabled under reduced motion." },
+      { "name": "selvedge", "value": "selvedge-emerge 5.4s–15.2s; 40 bits (20 per edge), 1–2px × 2–3px, seeded PRNG for every attribute, 4–6px breathing shadow", "purpose": "Irregular loose thread ends that enter from each raw edge, climb upward and fade; seeded at module load (deterministic), transform/opacity only, paused when hidden, faint and still under reduced motion." }
     ],
     "breakpoints": [
       { "name": "desktop", "value": "1024px" },

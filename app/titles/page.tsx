@@ -1,25 +1,20 @@
 import type { Metadata } from "next";
 import SubPage from "../SubPage";
+import TitlesStory, { type SeasonAward } from "./TitlesStory";
 
 export const metadata: Metadata = {
   title: "Titles — NAVI MPL ID",
-  description: "Verified awards and honours for the NAVI MPL ID squad.",
-};
-
-type Award = {
-  subject: string;
-  level: "Team" | "Individual";
-  result: string;
+  description: "Verified awards and honours for the NAVI MPL ID squad, and the organisation behind them.",
 };
 
 // Only awards verifiable from the team and league records. Held as data so the
-// ledger renders uniformly and an empty set resolves to a designed state rather
-// than a blank region or a half-built list.
-const awards: Award[] = [
-  { subject: "MPL ID Season 18", level: "Team", result: "Runners-up" },
-  { subject: "Joshuaa", level: "Individual", result: "First Team Jungler" },
-  { subject: "Joshuaa", level: "Individual", result: "Rookie of the Season" },
-  { subject: "Aprho", level: "Individual", result: "First Team Roamer" },
+// season block and the wider heritage never borrow facts from each other.
+// Crest artwork is the authored set already used on the Home roster.
+const awards: SeasonAward[] = [
+  { crest: "runnerup.svg", subject: "MPL ID Season 18", level: "Team", result: "Runners-up" },
+  { crest: "jungle.svg", subject: "Joshuaa", level: "Individual", result: "First Team Jungler" },
+  { crest: "rookie.svg", subject: "Joshuaa", level: "Individual", result: "Rookie of the Season" },
+  { crest: "roam.svg", subject: "Aprho", level: "Individual", result: "First Team Roamer" },
 ];
 
 export default function TitlesPage() {
@@ -27,29 +22,11 @@ export default function TitlesPage() {
     <SubPage
       active="Titles"
       title="Titles"
-      lede="Verified awards and honours, at team and individual level."
+      lede="Four verified Season 18 honours, and the long name that stands behind them."
     >
-      {awards.length > 0 ? (
-        <div className="ledger" role="list" aria-label="Verified awards and honours">
-          {awards.map((award) => (
-            <div
-              className="ledger-row"
-              role="listitem"
-              key={`${award.subject}-${award.result}`}
-            >
-              <span className="ledger-main">{award.subject}</span>
-              <span className="ledger-meta">{award.level}</span>
-              <span className="ledger-value">{award.result}</span>
-            </div>
-          ))}
-        </div>
-      ) : (
-        <div className="page-empty" role="status">
-          <p>No verified titles are available in this portfolio preview.</p>
-        </div>
-      )}
+      <TitlesStory awards={awards} />
       <p className="page-note">
-        Only awards that can be verified from the team and league records are listed.
+        Season 18 awards: team and league records. Heritage: the sourced organisation record.
       </p>
     </SubPage>
   );
