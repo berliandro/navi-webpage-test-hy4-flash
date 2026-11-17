@@ -27,6 +27,7 @@
   --on-white: #14150f;
   --on-white-soft: rgba(20, 21, 15, 0.62);
   --ink-faint-on-white: rgba(20, 21, 15, 0.3);
+  --type-stats-title: clamp(2.4rem, calc(5vw * 6 / var(--chars, 7)), 5.2rem);
   --weave: repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.018) 0 1px, transparent 1px 4px),
     repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.05) 0 1px, transparent 1px 4px);
   --weave-light: repeating-linear-gradient(90deg, rgba(20, 21, 15, 0.035) 0 1px, transparent 1px 4px),
@@ -742,13 +743,37 @@ img[data-hydrated="true"][data-media-state="loaded"] { opacity: 1; transition: o
   padding-bottom: 0.55rem;
   border-bottom: 3px solid var(--on-white);
 }
+.stats-heading { min-width: 0; }
 .stats-title {
   margin: 0;
-  font-size: var(--type-step-17);
+  /* Resolve the clamp here, where --chars is set, so long handles scale down. */
+  --type-stats-title: clamp(2.4rem, calc(5vw * 6 / var(--chars, 7)), 5.2rem);
+  font-size: var(--type-stats-title);
   font-weight: 900;
-  line-height: 0.9;
-  letter-spacing: -0.04em;
+  line-height: 0.86;
+  letter-spacing: -0.055em;
   text-transform: uppercase;
+  overflow-wrap: anywhere;
+  text-wrap: balance;
+}
+.stats-edition {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0.45rem 0 0;
+  font-size: var(--type-step-04);
+  font-weight: 900;
+  letter-spacing: var(--track-label);
+  line-height: 1.3;
+  text-transform: uppercase;
+  color: var(--on-white);
+}
+.stats-edition::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  flex: none;
+  background: var(--thread);
 }
 .stats-close {
   width: 32px;
@@ -781,6 +806,7 @@ img[data-hydrated="true"][data-media-state="loaded"] { opacity: 1; transition: o
   overflow: visible;
 }
 .stats-ring { fill: none; stroke: var(--ink-faint-on-white); stroke-width: 1; }
+.stats-ring--outer { stroke: var(--on-white); stroke-opacity: 0.55; stroke-width: 1.6; }
 .stats-spoke { stroke: var(--ink-faint-on-white); stroke-width: 0.8; }
 .stats-current { transform-origin: 100px 100px; animation: stats-beat 340ms var(--ease) both; }
 @keyframes stats-beat {
@@ -788,7 +814,7 @@ img[data-hydrated="true"][data-media-state="loaded"] { opacity: 1; transition: o
   to { opacity: 1; transform: none; }
 }
 /* Ink carries the shape on cream; yellow is the signal inside it. */
-.stats-shape { fill: var(--on-white); fill-opacity: 0.9; stroke: var(--on-white); stroke-width: 3.4; }
+.stats-shape { fill: var(--on-white); fill-opacity: 0.9; stroke: var(--on-white); stroke-width: 4; }
 .stats-dot { fill: var(--thread); stroke: var(--on-white); stroke-width: 1.2; }
 .stats-values {
   display: grid;
@@ -807,7 +833,7 @@ img[data-hydrated="true"][data-media-state="loaded"] { opacity: 1; transition: o
 }
 .stats-values dd {
   margin: 0.15rem 0 0;
-  font-size: var(--type-step-17);
+  font-size: var(--type-step-18);
   font-weight: 900;
   font-variant-numeric: tabular-nums;
   letter-spacing: -0.03em;
@@ -1260,7 +1286,7 @@ img[data-hydrated="true"][data-media-state="loaded"] { opacity: 1; transition: o
   .jersey.stats-open .feature-nav,
   .jersey.stats-open .feature-count { opacity: 0; pointer-events: none; }
   .stats-panel { left: 0; top: 0; width: 100%; height: 100%; padding: 0.75rem; gap: 0.25rem; }
-  .stats-title { font-size: var(--type-step-17); }
+  .stats-title { font-size: var(--type-step-20); }
   .stats-hex { max-height: 32vh; width: min(62%, 160px); margin: 0 auto; }
   .staff-lineup { position: relative; inset: auto; grid-template-columns: 1fr; }
   .page-wrap { padding-top: clamp(2rem, 7vh, 3.5rem); }

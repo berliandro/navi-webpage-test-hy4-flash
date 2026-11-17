@@ -365,7 +365,16 @@ function StatsPanel({
       aria-label={`Season 18 statistics for ${player.handle}`}
     >
       <div className="stats-panel-head">
-        <h2 className="stats-title">Season 18</h2>
+        <div className="stats-heading">
+          <h2
+            className="stats-title"
+            dir="auto"
+            style={{ "--chars": Array.from(player.handle).length || 7 } as CSSProperties}
+          >
+            {player.handle}
+          </h2>
+          <p className="stats-edition">Season 18 · {player.role}</p>
+        </div>
         <button type="button" className="stats-close" onClick={onClose} aria-label="Close statistics">
           <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
             <path d="M6 6l12 12M18 6L6 18" />
@@ -379,7 +388,7 @@ function StatsPanel({
             {[0.33, 0.66, 1].map((ring) => (
               <polygon
                 key={ring}
-                className="stats-ring"
+                className={ring === 1 ? "stats-ring stats-ring--outer" : "stats-ring"}
                 points={polygonFor([ring, ring, ring, ring, ring, ring])}
               />
             ))}
@@ -391,7 +400,7 @@ function StatsPanel({
               <polygon className="stats-shape" points={polygonFor(values)} />
               {values.map((v, i) => {
                 const p = hexPoint(i, v * 66);
-                return <circle key={i} className="stats-dot" cx={p.x} cy={p.y} r={2.4} />;
+                return <circle key={i} className="stats-dot" cx={p.x} cy={p.y} r={3.6} />;
               })}
             </g>
           </svg>
