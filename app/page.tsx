@@ -775,7 +775,7 @@ export default function Page() {
             <p className="lineup-empty">Roster information is currently unavailable.</p>
           ) : (
             <>
-              <div className="chest-copy">
+              <div className={`chest-copy${statsOpen && tab === "players" ? " is-reading" : ""}`}>
                 <h2 className="chest-name">NAVI MPL ID</h2>
                 <p className="chest-proof">MPL ID Season 18 runners-up</p>
                 <p className="chest-context">Indonesian Mobile Legends team · MPL Indonesia</p>

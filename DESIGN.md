@@ -138,7 +138,7 @@ Below 1024px the page becomes a document. The chest reflows to a shorter block, 
 Flat by default; depth comes from fabric layering, a fine woven grain and a few downward-offset shadows. Every shadow carries a downward offset and soft blur — no zero-offset colored halos. The touch cue, the selected tag row and the care label are the only elements that lift.
 
 ### Shadow Vocabulary
-- **Stitch lift** (`--shadow-stitch`: `0 10px 28px rgba(0,0,0,0.42)`): Woven tag, stats label and care label against the cloth.
+- **Stitch lift** (`--shadow-stitch`: `0 10px 28px rgba(0,0,0,0.42)`): Woven tag and care label against the cloth. The stats readout is printed flat on the fabric and never lifts.
 - **Print drop** (`0 16px 24px rgba(0,0,0,0.55)`): Player cutouts against the garment; smaller companion variant below it.
 
 **The Unbroken Print Rule.** A cutout that is loading or has failed never breaks the field — the swatch and a monogram hold the space.
@@ -166,8 +166,10 @@ Corners are squared at 2px (`--radius-seam`) — garment hardware, not soft card
 ### Woven tag
 - A narrow dark column with a fine horizontal weave, a 3px yellow left border, a heading, seven clickable name/role rows and a care-label action. The current player's row gets a yellow wash and a 2px yellow left edge — lift-on-select without a second accent.
 
-### Stats care label
-- An optional, toggled panel docked over the chest. A six-axis hexagon in seam hairlines with the current player's polygon and dots in yellow; published values in a definition list; the `Shape · not a score` note keeps geometry distinct from data. Players with no published figures get a dashed no-data plate. Escape closes it and focus returns to the toggle.
+### Stats spec sheet
+- Not a popup. The `Season 18` toggle turns the off-white cloth panel into one printed specification sheet: the title is heavy display ink with a 2px ink rule, and the six-axis hexagon fills the panel at full scale — hairline ink rings, a thread-filled polygon with a 2.4px stroke, and thread dots ringed in ink.
+- Published values sit in a three-column definition list with a hairline ink divider; the `Shape · not a score` note keeps derived geometry distinct from published data, and the source line names MPL Indonesia Season 18 regular season. Players with no published figures get the same ink-and-thread treatment with a plain ink rule, never a dark no-data plate.
+- Companions, the touch cue and the player print quiet down while the sheet is open; on narrow screens the whole cloth becomes the sheet, then returns to the jersey on close. Escape closes it and focus returns to the toggle; switching players updates the readout in place.
 
 ### Merchandise card
 - Real self-hosted product image, classification badge, sourced item name, resolution line and an outbound `View at seller ↗` link (`target="_blank"`, `rel="noopener noreferrer"`).
