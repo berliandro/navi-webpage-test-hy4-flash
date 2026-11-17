@@ -807,12 +807,20 @@ img[data-hydrated="true"][data-media-state="loaded"] { opacity: 1; transition: o
   text-transform: uppercase;
   color: var(--on-white);
 }
+/* A square frame keeps the hexagon from letterboxing into empty side gutters. */
+.stats-hex-frame {
+  flex: 1 1 auto;
+  min-height: 0;
+  width: auto;
+  aspect-ratio: 1 / 1;
+  align-self: center;
+  max-width: 100%;
+  position: relative;
+}
 .stats-hex {
   display: block;
   width: 100%;
-  max-height: min(46vh, 300px);
-  flex: 1 1 auto;
-  min-height: 0;
+  height: 100%;
   overflow: visible;
 }
 .stats-ring { fill: none; stroke: var(--ink-faint-on-white); stroke-width: 1; }
@@ -1295,9 +1303,41 @@ img[data-hydrated="true"][data-media-state="loaded"] { opacity: 1; transition: o
   .jersey.stats-open .print,
   .jersey.stats-open .feature-nav,
   .jersey.stats-open .feature-count { opacity: 0; pointer-events: none; }
-  .stats-panel { left: 0; top: 0; width: 100%; height: 100%; padding: 0.75rem; gap: 0.25rem; }
+  /* Phone: the glyph and its values share a row instead of leaving one small
+     square in wide empty gutters. */
+  .stats-panel {
+    display: grid;
+    grid-template-columns: 44% minmax(0, 1fr);
+    grid-template-rows: auto auto 1fr auto;
+    column-gap: 0.75rem;
+    row-gap: 0.35rem;
+    align-items: center;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    padding: 0.75rem;
+  }
   .stats-title { font-size: var(--type-step-20); }
-  .stats-hex { max-height: 32vh; width: min(62%, 160px); margin: 0 auto; }
+  .stats-panel-head, .stats-shape-note, .stats-source { grid-column: 1 / -1; }
+  .stats-hex-frame {
+    grid-column: 1;
+    grid-row: 3;
+    align-self: center;
+    width: 100%;
+    height: auto;
+    min-height: 0;
+    max-height: none;
+  }
+  .stats-values {
+    grid-column: 2;
+    grid-row: 3;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.3rem 0.4rem;
+    padding-top: 0;
+    border-top: 0;
+  }
+  .stats-source { line-height: 1.3; }
   .staff-lineup { position: relative; inset: auto; grid-template-columns: 1fr; }
   .page-wrap { padding-top: clamp(2rem, 7vh, 3.5rem); }
   .page-stage .topbar { top: auto; }

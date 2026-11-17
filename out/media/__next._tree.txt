@@ -1,4 +1,4 @@
-:HL["/navi-webpage-test-hy4-flash/_next/static/chunks/1ry-younjw7p-.css","style"]
+:HL["/navi-webpage-test-hy4-flash/_next/static/chunks/20ll2mj7gddnt.css","style"]
 2:[["children",{"s":"__PAGE__","h":160}]]
 1:[["children",{"s":"media","h":96,"c":"$Q2"}]]
-0:{"b":"L3DYYXJBjGKC5IhjpTWQn","t":{"t":{"s":"","h":80,"c":"$Q1"}}}
+0:{"b":"9qzoDKHrlyxxQoR1Z8yLO","t":{"t":{"s":"","h":80,"c":"$Q1"}}}

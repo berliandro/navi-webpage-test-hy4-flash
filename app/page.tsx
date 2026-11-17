@@ -387,6 +387,7 @@ function StatsPanel({
       {stats ? (
         <>
           <span className="stats-shape-note" aria-hidden="true">Shape · not a score</span>
+          <div className="stats-hex-frame">
           <svg className="stats-hex" viewBox="0 0 200 200" role="img" aria-label={`Six-axis statistics hexagon for ${player.handle}`}>
             {[0.33, 0.66, 1].map((ring) => (
               <polygon
@@ -407,6 +408,7 @@ function StatsPanel({
               })}
             </g>
           </svg>
+          </div>
           <dl className="stats-values">
             {statAxes.map((axis) => (
               <div key={axis.key}>
