@@ -1,0 +1,14 @@
+# Dependencies and build caches
+node_modules/
+.next/
+out/.next/
+tsconfig.tsbuildinfo
+
+# Runtime / tool scratch
+.playwright-mcp/
+.impeccable/questions/
+.impeccable/build/
+*.log
+
+# The static export in out/ IS committed for GitHub Pages.
+# Keep out/.nojekyll — it is required for a project site.
