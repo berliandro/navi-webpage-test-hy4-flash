@@ -855,7 +855,7 @@ export default function Page() {
 
       <section
         ref={rosterRef}
-        className={`jersey${statsOpen && tab === "players" ? " stats-open" : ""}`}
+        className={`jersey${statsOpen && tab === "players" ? " stats-open" : ""}${tab === "staff" ? " is-staff" : ""}`}
         id="roster"
         role="tabpanel"
         aria-labelledby={tab === "players" ? "tab-players" : "tab-staff"}
@@ -869,29 +869,38 @@ export default function Page() {
         <div className="chest">
           {tab === "staff" ? (
             staff.length ? (
-              <div className="staff-lineup">
-                {staff.map((member, index) => (
-                  <div
-                    className="staff-card"
-                    key={`${member.name}-${index}`}
-                    style={{ "--i": index } as CSSProperties}
-                  >
-                    <div className="staff-figure">
-                      <span className="staff-swatch" aria-hidden="true" />
-                      <MediaImage
-                        src={asset(member.img)}
-                        alt=""
-                        width={member.w}
-                        height={member.h}
-                        fallbackLabel={firstGrapheme(member.name)}
-                        className="staff-portrait"
-                      />
+              <>
+                <div className="staff-identity">
+                  <h2 className="staff-identity-name">NAVI MPL ID</h2>
+                  <p className="staff-identity-meta">Coaching staff · Season 18</p>
+                </div>
+                <div className="staff-lineup">
+                  {staff.map((member, index) => (
+                    <div
+                      className="staff-card"
+                      key={`${member.name}-${index}`}
+                      style={{ "--i": index } as CSSProperties}
+                    >
+                      <div className="staff-figure">
+                        <span className="staff-swatch" aria-hidden="true" />
+                        <MediaImage
+                          src={asset(member.img)}
+                          alt=""
+                          width={member.w}
+                          height={member.h}
+                          fallbackLabel={firstGrapheme(member.name)}
+                          className="staff-portrait"
+                        />
+                      </div>
+                      <h3 className="staff-name" dir="auto">{member.name}</h3>
+                      <span className="staff-role">{member.role}</span>
+                      <span className="staff-country" aria-label={`Country: ${member.country}`}>
+                        {member.country}
+                      </span>
                     </div>
-                    <h2 className="staff-name" dir="auto">{member.name}</h2>
-                    <span>{member.role}</span>
-                  </div>
-                ))}
-              </div>
+                  ))}
+                </div>
+              </>
             ) : (
               <p className="lineup-empty">Staff information is currently unavailable.</p>
             )

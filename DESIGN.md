@@ -133,6 +133,8 @@ Inside the chest, an off-white panel occupies the left 46% with a clipped diagon
 
 Below 1024px the page becomes a document. The chest reflows to a shorter block, the woven tag becomes a full-width band with a three-column name grid, and the hem follows directly so all four verified facts stay above the fold at 390×844. Short landscape keeps the single-screen field. Coarse pointers grow controls to 44px. Safe-area insets come from `viewport-fit=cover`.
 
+The Staff tab keeps the same two-panel grammar: the off-white panel carries a quiet `NAVI MPL ID / Coaching staff · Season 18` identity, and the three staff cards occupy the dark field. Each card carries only three verified facts — name, role and country code — with a larger portrait than the player bench. On phones the cloth goes full-width and each card becomes a compact horizontal row so all three fit without filler copy.
+
 ## Elevation & Depth
 
 Flat by default; depth comes from fabric layering, a fine woven grain and a few downward-offset shadows. Every shadow carries a downward offset and soft blur — no zero-offset colored halos. The touch cue, the selected tag row and the care label are the only elements that lift.
