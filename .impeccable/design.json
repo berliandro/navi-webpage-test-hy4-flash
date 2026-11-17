@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-11-17T16:00:00Z",
+  "generatedAt": "2026-11-17T17:00:00Z",
   "title": "Design System: NAVI MPL ID Fan Hub",
   "extensions": {
     "colorMeta": {
@@ -30,7 +30,8 @@
       { "name": "transfer-wash", "value": "transfer-wash 560ms", "purpose": "Single bloom of the radial wash behind the print." },
       { "name": "thread-contact", "value": "thread-contact 640ms", "purpose": "One brightness and glow pulse on the yellow piping at the moment of the press." },
       { "name": "ink-set", "value": "ink-set 420ms 110ms / role-set 340ms 200ms", "purpose": "Handle and role arrive after the print, like ink setting on cloth." },
-      { "name": "control-press", "value": "scale(1) -> scale(0.955) translateY(1px) -> scale(1), 260ms", "purpose": "Shared tactile press feedback for every button and button-like link; 140ms opacity-only alternative under reduced motion." }
+      { "name": "control-press", "value": "scale(1) -> scale(0.955) translateY(1px) -> scale(1), 260ms", "purpose": "Shared tactile press feedback for every button and button-like link; 140ms opacity-only alternative under reduced motion." },
+      { "name": "ambient-garment", "value": "thread-glint 9s linear infinite (two half-cycle-offset glints); weave-drift 14s/18s linear infinite", "purpose": "Seamless at-rest life: soft light along the piping and one-tile weave drift; paused when hidden, disabled under reduced motion." }
     ],
     "breakpoints": [
       { "name": "desktop", "value": "1024px" },

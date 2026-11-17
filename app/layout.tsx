@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { asset, route } from "./assetPath";
 import PressFeedback from "./PressFeedback";
+import AmbientMotion from "./AmbientMotion";
 
 const siteTitle = "NAVI MPL ID — Team & Merchandise";
 const siteDescription =
@@ -52,6 +53,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="en">
       <body>
         <PressFeedback />
+        <AmbientMotion />
         {children}
       </body>
     </html>

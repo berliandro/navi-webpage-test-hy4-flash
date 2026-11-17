@@ -259,12 +259,19 @@ a { color: inherit; }
   width: 46%;
   background: var(--weave-light), var(--cloth-white);
   clip-path: polygon(0 0, 84% 0, 100% 100%, 0 100%);
+  /* The grain shifts exactly one 4px weave tile, so the loop has no seam. */
+  animation: weave-drift 14s linear infinite;
 }
 .cloth--black {
   right: 0;
   width: 64%;
   background: var(--weave), radial-gradient(ellipse 70% 90% at 60% 40%, var(--cloth-black-2), var(--cloth-black) 74%);
   clip-path: polygon(6% 0, 100% 0, 100% 100%, 0 100%);
+  animation: weave-drift 18s linear infinite reverse;
+}
+@keyframes weave-drift {
+  from { background-position: 0 0, 0 0; }
+  to { background-position: 4px 0, 0 0; }
 }
 .stitch--shoulder {
   position: absolute;
@@ -281,10 +288,37 @@ a { color: inherit; }
   top: 0;
   bottom: 0;
   width: 3px;
+  overflow: hidden;
   background: var(--thread);
   transform: skewX(-11deg);
   box-shadow: 0 0 18px var(--thread-glow);
   animation: thread-contact 640ms var(--ease) both;
+}
+/* Two identical glints, half a cycle apart: as one leaves, the other takes its
+   place, so the loop has no cut. Only opacity moves, on a three-pixel line. */
+.piping::before,
+.piping::after {
+  content: "";
+  position: absolute;
+  left: -2px;
+  width: 7px;
+  height: 30%;
+  background: linear-gradient(180deg, transparent, var(--thread-glow), transparent);
+  pointer-events: none;
+  animation: thread-glint 9s linear infinite;
+}
+.piping::before { top: -30%; }
+.piping::after { top: -30%; animation-delay: -4.5s; }
+@keyframes thread-glint {
+  from { transform: translateY(0); }
+  to { transform: translateY(333.333%); }
+}
+/* Nonessential loops stop while the tab is hidden. */
+html[data-motion="paused"] .piping::before,
+html[data-motion="paused"] .piping::after,
+html[data-motion="paused"] .cloth--white,
+html[data-motion="paused"] .cloth--black {
+  animation-play-state: paused;
 }
 /* The thread catches the heat of the press once, then settles. */
 @keyframes thread-contact {
@@ -1318,9 +1352,12 @@ img[data-hydrated="true"][data-media-state="loaded"] { opacity: 1; transition: o
   .feature-figure, .feature-figure[data-dir="-1"] {
     animation: motion-fade 140ms linear both !important;
   }
-  .print-plate, .print-name, .print-name[data-dir="-1"], .print-role, .piping {
+  .print-plate, .print-name, .print-name[data-dir="-1"], .print-role, .piping,
+  .piping::before, .piping::after, .cloth--white, .cloth--black {
     animation: none !important;
   }
+  /* The piping keeps its static lit glow; nothing drifts or loops. */
+  .piping::before, .piping::after { display: none; }
   @keyframes motion-fade {
     from { opacity: 0.45; }
     to { opacity: 1; }
