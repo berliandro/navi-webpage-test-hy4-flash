@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-11-17T13:00:00Z",
+  "generatedAt": "2026-11-17T14:00:00Z",
   "title": "Design System: NAVI MPL ID Fan Hub",
   "extensions": {
     "colorMeta": {
@@ -25,7 +25,11 @@
       { "name": "swatch-shallow", "value": "polygon(10% 0, 90% 0, 100% 12%, 100% 88%, 90% 100%, 10% 100%, 0 88%, 0 12%)", "purpose": "Companion print swatch behind a cutout." }
     ],
     "motion": [
-      { "name": "ease-out", "value": "cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "All state transitions and the featured print swap." }
+      { "name": "ease-out", "value": "cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "All state transitions and the heat-transfer print sequence." },
+      { "name": "transfer-press", "value": "transfer-next / transfer-prev 620ms", "purpose": "Slanted press reveal of the new cutout, direction-aware; settles from scale 1.045." },
+      { "name": "transfer-wash", "value": "transfer-wash 560ms", "purpose": "Single bloom of the radial wash behind the print." },
+      { "name": "thread-contact", "value": "thread-contact 640ms", "purpose": "One brightness and glow pulse on the yellow piping at the moment of the press." },
+      { "name": "ink-set", "value": "ink-set 420ms 110ms / role-set 340ms 200ms", "purpose": "Handle and role arrive after the print, like ink setting on cloth." }
     ],
     "breakpoints": [
       { "name": "desktop", "value": "1024px" },

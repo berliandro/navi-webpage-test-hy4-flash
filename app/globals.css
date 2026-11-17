@@ -272,6 +272,13 @@ a { color: inherit; }
   background: var(--thread);
   transform: skewX(-11deg);
   box-shadow: 0 0 18px var(--thread-glow);
+  animation: thread-contact 640ms var(--ease) both;
+}
+/* The thread catches the heat of the press once, then settles. */
+@keyframes thread-contact {
+  0% { filter: brightness(1); box-shadow: 0 0 0 var(--thread-glow); }
+  28% { filter: brightness(1.4); box-shadow: 0 0 26px var(--thread-glow); }
+  100% { filter: brightness(1); box-shadow: 0 0 18px var(--thread-glow); }
 }
 
 /* The identity is heat-pressed into the off-white panel, clear of the print. */
@@ -331,6 +338,12 @@ a { color: inherit; }
   inset: 8% 8% 16%;
   background: radial-gradient(ellipse 60% 48% at 50% 28%, var(--print-wash), transparent 72%);
   pointer-events: none;
+  animation: transfer-wash 560ms var(--ease) both;
+}
+@keyframes transfer-wash {
+  from { opacity: 0; transform: scale(0.9); }
+  45% { opacity: 1; transform: scale(1.03); }
+  to { opacity: 1; transform: scale(1); }
 }
 .print .media-fallback,
 .print img,
@@ -361,20 +374,35 @@ img[data-hydrated="true"][data-media-state="loaded"] { opacity: 1; transition: o
   color: var(--on-black-faint);
 }
 
+/* One authored moment: a heat transfer pressed along the piping's diagonal.
+   The new print is revealed by a slanted press, settles like fabric relaxing,
+   and the wash blooms once. No loops, no layout properties. */
 .feature-figure {
   position: absolute;
   inset: 0;
-  clip-path: inset(-20% -20% -20% -20%);
-  animation: print-swap-next 520ms var(--ease) both;
+  clip-path: polygon(0 0, 112% 0, 100% 100%, -12% 100%);
+  animation: transfer-next 620ms var(--ease) both;
 }
-.feature-figure[data-dir="-1"] { animation-name: print-swap-prev; }
-@keyframes print-swap-next {
-  from { clip-path: inset(-20% -20% -20% 100%); transform: translateX(34px); }
-  to { clip-path: inset(-20% -20% -20% -20%); transform: translateX(0); }
+.feature-figure[data-dir="-1"] { animation-name: transfer-prev; }
+@keyframes transfer-next {
+  from {
+    clip-path: polygon(0 0, 12% 0, 0 100%, -12% 100%);
+    transform: translateX(16px) scale(1.045);
+  }
+  to {
+    clip-path: polygon(0 0, 112% 0, 100% 100%, -12% 100%);
+    transform: none;
+  }
 }
-@keyframes print-swap-prev {
-  from { clip-path: inset(-20% 100% -20% -20%); transform: translateX(-34px); }
-  to { clip-path: inset(-20% -20% -20% -20%); transform: translateX(0); }
+@keyframes transfer-prev {
+  from {
+    clip-path: polygon(88% 0, 112% 0, 112% 100%, 76% 100%);
+    transform: translateX(-16px) scale(1.045);
+  }
+  to {
+    clip-path: polygon(0 0, 112% 0, 100% 100%, -12% 100%);
+    transform: none;
+  }
 }
 
 .hero-hint {
@@ -404,16 +432,16 @@ img[data-hydrated="true"][data-media-state="loaded"] { opacity: 1; transition: o
   text-align: center;
   z-index: 6;
   pointer-events: none;
-  animation: name-in-next 440ms var(--ease) 60ms both;
+  animation: ink-set-next 420ms var(--ease) 110ms both;
 }
-.print-name[data-dir="-1"] { animation-name: name-in-prev; }
-@keyframes name-in-next {
-  from { opacity: 0; transform: translate(calc(-50% + 24px), 10px); }
-  to { opacity: 1; transform: translate(-50%, 0); }
+.print-name[data-dir="-1"] { animation-name: ink-set-prev; }
+@keyframes ink-set-next {
+  from { opacity: 0; transform: translate(calc(-50% + 18px), 6px) scale(0.98); }
+  to { opacity: 1; transform: translate(-50%, 0) scale(1); }
 }
-@keyframes name-in-prev {
-  from { opacity: 0; transform: translate(calc(-50% - 24px), 10px); }
-  to { opacity: 1; transform: translate(-50%, 0); }
+@keyframes ink-set-prev {
+  from { opacity: 0; transform: translate(calc(-50% - 18px), 6px) scale(0.98); }
+  to { opacity: 1; transform: translate(-50%, 0) scale(1); }
 }
 .print-handle {
   margin: 0;
@@ -434,6 +462,11 @@ img[data-hydrated="true"][data-media-state="loaded"] { opacity: 1; transition: o
   letter-spacing: var(--track-code);
   text-transform: uppercase;
   color: var(--thread);
+  animation: role-set 340ms var(--ease) 200ms both;
+}
+@keyframes role-set {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: none; }
 }
 
 /* small companion prints along the hem of the cloth */
@@ -1266,6 +1299,18 @@ img[data-hydrated="true"][data-media-state="loaded"] { opacity: 1; transition: o
   }
   .print-card, .tab, .stats-toggle, .filter, .feature-nav button, .stats-close {
     transition-duration: 80ms !important;
+  }
+  /* Intentional alternative: a short opacity cue keeps the swap legible with
+     no spatial movement, slanted wipe, wash bloom or thread flash. */
+  .feature-figure, .feature-figure[data-dir="-1"] {
+    animation: motion-fade 140ms linear both !important;
+  }
+  .print-plate, .print-name, .print-name[data-dir="-1"], .print-role, .piping {
+    animation: none !important;
+  }
+  @keyframes motion-fade {
+    from { opacity: 0.45; }
+    to { opacity: 1; }
   }
 }
 

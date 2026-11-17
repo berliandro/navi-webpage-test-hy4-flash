@@ -143,7 +143,7 @@ Flat by default; depth comes from fabric layering, a fine woven grain and a few 
 
 **The Unbroken Print Rule.** A cutout that is loading or has failed never breaks the field — the swatch and a monogram hold the space.
 
-There is one authored motion: the featured print is swapped like a transfer, wiping in from the direction the selection came from (arrows, companion cards, filter chips, tag rows and swipe all declare it), with the handle landing a beat behind. Reduced motion collapses it to a snap while keeping every value legible; forced colors replaces the yellow state signal with system outlines.
+There is one authored motion: a heat transfer pressed onto cloth. The new print is revealed by a slanted press travelling along the piping's diagonal, settles from a slight 1.045 scale, and the fabric wash blooms once behind it; the yellow piping catches the heat for a single 640ms pulse. The handle ink sets 110ms later and the role follows at 200ms. Direction comes from the entry point (arrows, companion cards, filter chips, tag rows and swipe all declare it), so the press travels the way the selection came from. Total sequence stays under 640ms with a confident ease-out — no loops, no layout-driving properties. Reduced motion replaces the whole sequence with one 140ms opacity cue; forced colors replaces the yellow state signal with system outlines.
 
 ## Shapes
 

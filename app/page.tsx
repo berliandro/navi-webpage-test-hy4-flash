@@ -740,7 +740,7 @@ export default function Page() {
         <span className="cloth cloth--white" aria-hidden="true" />
         <span className="cloth cloth--black" aria-hidden="true" />
         <span className="stitch stitch--shoulder" aria-hidden="true" />
-        <span className="piping" aria-hidden="true" />
+        <span className="piping" key={`piping-${featured?.id ?? "none"}`} aria-hidden="true" />
 
         <div className="chest">
           {tab === "staff" ? (
