@@ -129,11 +129,11 @@ Two fabric neutrals and one signal thread. All other values are tonal steps of t
 
 Desktop is a single 100svh garment. The neck tape (nav) sits at 3.4%, the stitched control row at 11.5%, the jersey field from 18% to 89%, and the hem of verified facts at 3.2% from the bottom — all sharing `--gutter`. The field is a two-column grid: the cloth chest takes the remaining width and the woven tag takes `clamp(180px, 18vw, 258px)`.
 
-Inside the chest, an off-white panel occupies the left 46% with a clipped diagonal edge; a black panel occupies the right 64%; a dashed seam and a 3px yellow piping run between them at a slight skew. The chest copy is heat-pressed into the off-white panel at 6% from the left. The featured player print is the dominant move: centred at 60% with a 46% width and 94% height, so the cutout reads as one decisive peak; four small companion prints stay quiet along the lower left. The woven tag is a real column: heading, seven clickable name/role rows, then the care-label action pinned to its foot.
+Inside the chest, an off-white panel occupies the left 46% with a clipped diagonal edge; a black panel occupies the right 64%; a dashed seam and a 3px yellow piping run between them at a slight skew. The chest copy is heat-pressed into the off-white panel at 6% from the left. The featured player print is the dominant move: centred at 60% with a 46% width and 94% height, so the cutout reads as one decisive peak. The woven tag is a real column: heading, **one selector** whose seven rows each carry a portrait, handle and one-word role, then the care-label action pinned to its foot. The former four-card bench and the name-only tag rows were duplicate selectors and are gone.
 
-Below 1024px the page becomes a document. The chest reflows to a shorter block, the woven tag becomes a full-width band with a three-column name grid, and the hem follows directly so all four verified facts stay above the fold at 390×844. Short landscape keeps the single-screen field. Coarse pointers grow controls to 44px. Safe-area insets come from `viewport-fit=cover`.
+Below 1024px the page becomes a document. The chest reflows to a shorter block, the woven tag becomes a full-width band with a two-column player-selector grid, and the hem follows directly so all four verified facts stay above the fold at 390×844. Short landscape keeps the single-screen field. Coarse pointers grow controls to 44px. Safe-area insets come from `viewport-fit=cover`.
 
-The Staff tab keeps the same two-panel grammar: the off-white panel carries a quiet `NAVI MPL ID / Coaching staff · Season 18` identity, and the three staff cards occupy the dark field. Each card carries only three verified facts — name, role and country code — with a larger portrait than the player bench. On phones the cloth goes full-width and each card becomes a compact horizontal row so all three fit without filler copy.
+The Staff tab keeps the same two-panel grammar: the off-white panel carries a quiet `NAVI MPL ID / Coaching staff · Season 18` identity, and the three staff cards occupy the dark field. Each card carries only three verified facts — name, role and country code — with a larger portrait than the player-selector thumbnails. On phones the cloth goes full-width and each card becomes a compact horizontal row so all three fit without filler copy.
 
 ## Elevation & Depth
 
@@ -141,18 +141,18 @@ Flat by default; depth comes from fabric layering, a fine woven grain and a few 
 
 ### Shadow Vocabulary
 - **Stitch lift** (`--shadow-stitch`: `0 10px 28px rgba(0,0,0,0.42)`): Woven tag and care label against the cloth. The stats readout is printed flat on the fabric and never lifts.
-- **Print drop** (`0 16px 24px rgba(0,0,0,0.55)`): Player cutouts against the garment; smaller companion variant below it.
+- **Print drop** (`0 16px 24px rgba(0,0,0,0.55)`): Player cutouts against the garment.
 
 **The Unbroken Print Rule.** A cutout that is loading or has failed never breaks the field — the swatch and a monogram hold the space.
 
-There is one authored motion: a heat transfer pressed onto cloth. The new print is revealed by a slanted press travelling along the piping's diagonal, settles from a slight 1.045 scale, and the fabric wash blooms once behind it; the yellow piping catches the heat for a single 640ms pulse. The handle ink sets 110ms later and the role follows at 200ms. Direction comes from the entry point (arrows, companion cards, filter chips, tag rows and swipe all declare it), so the press travels the way the selection came from. Total sequence stays under 640ms with a confident ease-out — no layout-driving properties. Reduced motion replaces the whole sequence with one 140ms opacity cue; forced colors replaces the yellow state signal with system outlines.
+There is one authored motion: a heat transfer pressed onto cloth. The new print is revealed by a slanted press travelling along the piping's diagonal, settles from a slight 1.045 scale, and the fabric wash blooms once behind it; the yellow piping catches the heat for a single 640ms pulse. The handle ink sets 110ms later and the role follows at 200ms. Direction comes from the entry point (arrows, selector rows and swipe declare it), so the press travels the way the selection came from. Lane chips are a lens and never select a player. Total sequence stays under 640ms with a confident ease-out — no layout-driving properties. Reduced motion replaces the whole sequence with one 140ms opacity cue; forced colors replaces the yellow state signal with system outlines.
 At rest the garment stays quietly alive: two soft glints pass along the yellow piping half a cycle apart (9s, seamless at the loop point), and each cloth's weave drifts exactly one 4px tile (14s/18s, opposite directions). Both loops use only transform/background-position, pause when the tab is hidden, and are disabled under reduced motion, where the piping simply keeps its static lit glow.
 
 Every page also carries a **selvedge**: forty loose thread ends, twenty on each raw edge of the garment. Each bit starts just outside the edge, travels inward as it climbs, and fades into faintness; both edges climb upward. They are 1–2px wide and 2–3px long — a touch smaller than the last pass — with durations from 5.4s to 15.2s. Every attribute (vertical band, phase, duration, size, brightness, inward distance and climb) comes from a **seeded PRNG at module load**, with a different seed per edge: stratified bands keep the edge covered while breaking the visible lattice that evenly spaced tops, alternating heights and arithmetic sequences produced. Seeded values are deterministic, so server and client agree. A bounded 4–6px shadow intensifies as the bit enters, peaks as it climbs, and dies away as it fades — light on yarn, never a particle field, orb or gradient blob. All motion is transform and opacity on isolated bits; the loops pause with the other ambient motion when the tab is hidden. Under reduced motion the ends sit faint and still at the edge, with no glow.
 
 ## Shapes
 
-Corners are squared at 2px (`--radius-seam`) — garment hardware, not soft cards. The off-white panel uses a four-point diagonal clip; companion swatches use a shallow eight-point cut; the piping and seam are skewed hairlines. Borders are solid for official merchandise and dashed for fan-made goods, so classification survives color flattening.
+Corners are squared at 2px (`--radius-seam`) — garment hardware, not soft cards. The off-white panel uses a four-point diagonal clip; selector portrait swatches use a shallow eight-point cut; the piping and seam are skewed hairlines. Borders are solid for official merchandise and dashed for fan-made goods, so classification survives color flattening.
 
 ## Components
 
@@ -167,11 +167,8 @@ Corners are squared at 2px (`--radius-seam`) — garment hardware, not soft card
 - A transparent official player cutout at full height on the cloth, with the handle across its lower third and a one-word role beneath.
 - Previous/next controls are squared, seam-bordered buttons at the right edge, with a `01 / 07 · BROWSE` counter.
 
-### Companion print
-- Small cutout on a light fabric swatch with a two-line handle/role label. Selecting it swaps the featured print. Under a role lens, out-of-role prints dim rather than disappear.
-
-### Woven tag
-- A narrow dark column with a fine horizontal weave, a 3px yellow left border, a heading, seven clickable name/role rows and a care-label action. The current player's row gets a yellow wash and a 2px yellow left edge — lift-on-select without a second accent.
+### Woven tag / player selector
+- A narrow dark column with a fine horizontal weave, a 3px yellow left border, a heading, seven player rows and a care-label action. Each row is **one control** carrying a portrait thumbnail, handle and one-word role; the selected row gets a yellow wash, a 2px yellow left edge and `aria-current`/`aria-pressed`. Rows outside the active lane lens dim but stay usable on hover/focus. There is no second player selector on the page.
 
 ### Stats spec sheet
 - Not a popup. The `Season 18` toggle turns the off-white cloth panel into one printed specification sheet. The featured player's handle is the display headline — heavy ink at up to 5.2rem, grapheme-scaled so the longest name stays on one line — with `Season 18 · ROLE` as a tracked code beneath it, marked by a yellow square. A 3px ink rule separates the head.

@@ -127,7 +127,6 @@ function honoursFor(playerId: string): Achievement[] {
   return individual ?? [runnerUp];
 }
 
-const sideIds = ["karss", "aprho", "jiizee", "zeonn"];
 const filters = ["ALL", "JUNGLE", "EXP", "MID", "GOLD", "ROAM"];
 const roleCountLabel: Record<string, string> = {
   EXP: "EXP",
@@ -136,33 +135,6 @@ const roleCountLabel: Record<string, string> = {
   GOLD: "GOLD",
   ROAM: "ROAM",
 };
-
-// The feature and the flank are one stage: a companion promoted to the center
-// leaves its slot empty. Backfill that slot with the next off-stage player so
-// the symmetric four-card composition never repeats the featured face.
-function companionsFor(featuredId: string, role = "ALL"): Player[] {
-  // Under a role lens, surface the in-role teammates first so the count on the
-  // chip is actually visible on the bench. With ALL, keep the pinned four.
-  const preferred =
-    role === "ALL"
-      ? sideIds
-      : [
-          ...players.filter((p) => p.role === role).map((p) => p.id),
-          ...sideIds,
-        ];
-  const ids: string[] = [];
-  for (const id of preferred) {
-    if (id !== featuredId && !ids.includes(id)) ids.push(id);
-  }
-  for (const player of players) {
-    if (ids.length >= 4) break;
-    if (player.id !== featuredId && !ids.includes(player.id)) ids.push(player.id);
-  }
-  return ids
-    .slice(0, 4)
-    .map((id) => players.find((p) => p.id === id))
-    .filter((p): p is Player => Boolean(p));
-}
 
 const filterToRole: Record<string, string> = {
   ALL: "ALL",
@@ -388,40 +360,6 @@ function AchievementBadge({ achievement, index }: { achievement: Achievement; in
         />
       </span>
     </li>
-  );
-}
-
-function SideCard({
-  player,
-  dimmed,
-  onSelect,
-  position,
-}: {
-  player: Player;
-  dimmed: boolean;
-  onSelect: () => void;
-  position: "far" | "near";
-}) {
-  return (
-    <button
-      type="button"
-      className={`print-card print-card--${position}${dimmed ? " dim" : ""}`}
-      onClick={onSelect}
-      aria-label={`Feature ${player.handle}, ${player.roleLabel}`}
-    >
-      <span className="print-swatch" aria-hidden="true" />
-      <MediaImage
-        src={asset(player.img)}
-        alt=""
-        width={830}
-        height={1044}
-        fallbackLabel={firstGrapheme(player.handle)}
-      />
-      <span className="print-card-label">
-        <b dir="auto">{player.handle}</b>
-        <span>{player.role}</span>
-      </span>
-    </button>
   );
 }
 
@@ -704,10 +642,6 @@ export default function Page() {
       : "";
   // Guard the empty-data path: with no players `featured` is undefined, and
   // dereferencing it here would crash before the degraded panel can render.
-  const [farLeft, nearLeft, nearRight, farRight] = featured
-    ? companionsFor(featured.id, activeRole)
-    : [];
-
   // The featured player and the active filter are two views of one selection.
   // Every entry point goes through here so a companion card cannot leave a
   // stale filter chip behind while it changes the player on stage.
@@ -725,30 +659,20 @@ export default function Page() {
       const nextIndex = players.findIndex((p) => p.id === id);
       setDir(nextIndex >= currentIndex ? 1 : -1);
     }
-    // Selecting a player never rewrites the filter: arrows and bench cards
-    // keep the active lens. Filter chips themselves promote the first in-role
-    // player so the control's effect is visible on the hero, not just the bench.
-    // A bench card can promote an out-of-role player. When that happens the
-    // active lens no longer describes the stage, so clear it: the pressed chip
-    // must never contradict the hero, and arrows must never be trapped in a
-    // one-player pool.
+    // Selecting a player is the only way to change the hero. When the chosen
+    // player sits outside the active lane lens, clear the lens: the pressed
+    // chip must never contradict the stage, and arrows must never be trapped
+    // in a one-player pool.
     if (!preserveFilter && activeRole !== "ALL" && next.role !== activeRole) setFilter("ALL");
     setFeaturedId(next.id);
   }
 
+  // A lane chip is a lens, not a second player selector. It narrows the line-up
+  // and the status line; the one selector in the woven tag stays the only way
+  // to change the featured player. Prev/next still cycle inside the lens.
   function chooseFilter(next: string) {
     setHintDismissed(true);
     setFilter(next);
-    const role = filterToRole[next] ?? "ALL";
-    if (role === "ALL") {
-      const first = players[0];
-      if (first) selectPlayer(first.id, undefined, true);
-      return;
-    }
-    if (featured?.role !== role) {
-      const match = players.find((p) => p.role === role);
-      if (match) selectPlayer(match.id, undefined, true);
-    }
   }
 
   function cycle(direction: 1 | -1) {
@@ -1032,20 +956,6 @@ export default function Page() {
                 ))}
               </ul>
 
-              <div className="print-bench" aria-label="Other players">
-                {[farLeft, nearLeft, nearRight, farRight].map((player, index) =>
-                  player ? (
-                    <SideCard
-                      key={player.id}
-                      player={player}
-                      dimmed={isDimmed(player.role)}
-                      onSelect={() => selectPlayer(player.id, index < 2 ? -1 : 1)}
-                      position={index === 0 || index === 3 ? "far" : "near"}
-                    />
-                  ) : null,
-                )}
-              </div>
-
               <span className="feature-count" aria-hidden="true">
                 {String(featuredIndex + 1).padStart(2, "0")} / {String(players.length).padStart(2, "0")} · BROWSE
               </span>
@@ -1084,12 +994,26 @@ export default function Page() {
                       className={[
                         player.id === featuredId ? "is-current" : undefined,
                         player.role === "RES" ? "is-reserve" : undefined,
+                        isDimmed(player.role) ? "is-lens-dim" : undefined,
                       ].filter(Boolean).join(" ") || undefined}
                       onClick={() => selectPlayer(player.id)}
                       aria-pressed={player.id === featuredId}
+                      aria-current={player.id === featuredId ? "true" : undefined}
+                      aria-label={`Feature ${player.handle}, ${player.roleLabel}`}
                     >
-                      <span className="tag-name" dir="auto">{player.handle}</span>
-                      <span className="tag-role">{player.role === "RES" ? "RESERVE" : player.role}</span>
+                      <span className="tag-portrait" aria-hidden="true">
+                        <MediaImage
+                          src={asset(player.img)}
+                          alt=""
+                          width={830}
+                          height={1044}
+                          fallbackLabel={firstGrapheme(player.handle)}
+                        />
+                      </span>
+                      <span className="tag-copy">
+                        <span className="tag-name" dir="auto">{player.handle}</span>
+                        <span className="tag-role">{player.role === "RES" ? "RESERVE" : player.role}</span>
+                      </span>
                     </button>
                   </li>
                 ))}
