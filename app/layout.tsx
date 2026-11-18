@@ -14,7 +14,17 @@ export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3200"),
   title: siteTitle,
   description: siteDescription,
-  icons: { icon: asset("/assets/brand/team-logo.png") },
+  icons: {
+    // A high-contrast mark for browser chrome: black NAVI on NAVI yellow stays
+    // legible at 16px in both light and dark tab strips. The wide team mark
+    // remains the in-page brand asset.
+    icon: [
+      { url: asset("/favicon.ico"), sizes: "any" },
+      { url: asset("/assets/brand/favicon-64.png"), type: "image/png", sizes: "64x64" },
+    ],
+    shortcut: asset("/favicon.ico"),
+    apple: { url: asset("/assets/brand/apple-icon.png"), type: "image/png", sizes: "180x180" },
+  },
   openGraph: {
     type: "website",
     title: siteTitle,
