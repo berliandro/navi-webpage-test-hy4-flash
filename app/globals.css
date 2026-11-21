@@ -264,6 +264,68 @@ html[data-motion="paused"] .selvedge-bit { animation-play-state: paused; }
   border-bottom-color: var(--thread);
 }
 
+/* First-use help: a native disclosure, no script. Sits at the end of the real
+   nav row and opens a compact cloth panel glossing the garment vocabulary. */
+.terms { position: relative; margin-left: 0.15rem; }
+.terms > summary {
+  list-style: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0.4rem 0.6rem;
+  border: 1px solid var(--seam);
+  border-radius: var(--radius-seam);
+  font-size: var(--type-code);
+  font-weight: 800;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--on-black-soft);
+  transition: color 200ms var(--ease), border-color 200ms var(--ease);
+}
+.terms > summary::-webkit-details-marker { display: none; }
+.terms > summary::after { content: "+"; margin-left: 0.45rem; color: var(--thread); }
+.terms[open] > summary::after { content: "−"; }
+.terms > summary:hover, .terms[open] > summary {
+  color: var(--thread);
+  border-color: var(--thread);
+}
+.terms-panel {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  right: 0;
+  z-index: 60;
+  width: min(360px, calc(100vw - 2rem));
+  max-height: min(70vh, 520px);
+  overflow: auto;
+  padding: 0.9rem 1rem;
+  background: var(--cloth-black-2);
+  border: 1px solid var(--seam);
+  border-radius: var(--radius-seam);
+  box-shadow: var(--shadow-stitch);
+}
+.terms-intro {
+  margin: 0 0 0.7rem;
+  font-size: var(--type-meta);
+  line-height: 1.5;
+  color: var(--on-black);
+}
+.terms-panel dl { margin: 0; }
+.terms-panel dl > div { padding: 0.45rem 0; border-top: 1px solid var(--hairline-light); }
+.terms-panel dt {
+  font-size: var(--type-code);
+  font-weight: 900;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--thread);
+}
+.terms-panel dd {
+  margin: 0.2rem 0 0;
+  font-size: var(--type-meta);
+  line-height: 1.5;
+  color: var(--on-black-soft);
+}
+
 /* ---------- stitched controls ---------- */
 .seam-controls {
   position: absolute;
@@ -1076,11 +1138,21 @@ img[data-hydrated="true"][data-media-state="loaded"] { opacity: 1; transition: o
   color: var(--on-white);
 }
 .stats-source {
+  position: relative;
   margin: auto 0 0;
-  font-size: var(--type-step-04);
+  font-size: var(--type-meta);
   line-height: 1.5;
   color: var(--on-white);
   overflow-wrap: anywhere;
+}
+.stats-source::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  top: 50%;
+  height: 44px;
+  transform: translateY(-50%);
+  pointer-events: auto;
 }
 .stats-empty {
   display: grid;
@@ -1685,15 +1757,26 @@ img[data-hydrated="true"][data-media-state="loaded"] { opacity: 1; transition: o
 .legacy-chapter-title { font-size: var(--type-step-15); font-weight: 900; line-height: 1.1; }
 .legacy-detail { font-size: var(--type-step-07); line-height: 1.6; color: var(--on-black-soft); }
 .legacy-source {
+  position: relative;
   align-self: center;
   padding-bottom: 2px;
   border-bottom: 1px solid var(--seam);
-  font-size: var(--type-step-05);
+  font-size: var(--type-meta);
   font-weight: 800;
   letter-spacing: var(--track-label);
   text-transform: uppercase;
   color: var(--on-black-faint);
   text-decoration: none;
+}
+/* Invisible 44px band: provenance stays visually compact but tappable. */
+.legacy-source::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  top: 50%;
+  height: 44px;
+  transform: translateY(-50%);
+  pointer-events: auto;
 }
 .legacy-source:hover { color: var(--thread); border-color: var(--thread); }
 
@@ -1745,9 +1828,12 @@ img[data-hydrated="true"][data-media-state="loaded"] { opacity: 1; transition: o
 .legacy-drawer-inner { overflow: hidden; }
 .legacy-links { list-style: none; display: grid; gap: 0.5rem; margin: 1rem 0 0; padding: 0; }
 .legacy-links a {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
   padding-bottom: 2px;
   border-bottom: 1px solid var(--seam);
-  font-size: var(--type-step-07);
+  font-size: var(--type-meta);
   font-weight: 800;
   letter-spacing: var(--track-label);
   text-transform: uppercase;
@@ -2219,19 +2305,8 @@ img[data-hydrated="true"][data-media-state="loaded"] { opacity: 1; transition: o
   .tag-list button { min-height: 44px; }
   .care-label, .shop-link { min-height: 44px; min-width: 44px; display: grid; place-items: center; }
   .legacy-toggle { min-height: 44px; min-width: 44px; }
-  /* Provenance links: grid links get real height; lone inline links get an
-     invisible 44px band so the source text keeps its typographic rhythm. */
-  .legacy-links a { min-height: 44px; display: flex; align-items: center; }
-  .legacy-source, .stats-source { position: relative; }
-  .legacy-source::after, .stats-source::after {
-    content: "";
-    position: absolute;
-    inset-inline: 0;
-    top: 50%;
-    height: 44px;
-    transform: translateY(-50%);
-    pointer-events: auto;
-  }
+  /* Provenance link hit bands now live in the base rules — they apply at every
+     width, not only narrow/coarse. */
 }
 
 @media (hover: none) {
