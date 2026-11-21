@@ -2148,8 +2148,9 @@ img[data-hydrated="true"][data-media-state="loaded"] { opacity: 1; transition: o
 @media (max-width: 380px) {
   --track-label: 0.12em;
   .cloth--white { width: 82%; }
-  .chest-copy { left: var(--gutter); max-width: 56%; }
-  .print { left: 55%; width: 62%; }
+  .chest-copy { left: var(--gutter); max-width: 56%; top: 2%; }
+  /* Move the print below the copy band so 12px ink never sits under the cutout. */
+  .print { left: 45%; top: 42%; width: 66%; height: 58%; }
 }
 
 /* Short landscape keeps the single-screen field. */
