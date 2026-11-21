@@ -934,8 +934,8 @@ img[data-hydrated="true"][data-media-state="loaded"] { opacity: 1; transition: o
   background: var(--thread);
 }
 .stats-close {
-  width: 32px;
-  height: 32px;
+  width: 44px;
+  height: 44px;
   flex: none;
   display: grid;
   place-items: center;
@@ -990,14 +990,19 @@ img[data-hydrated="true"][data-media-state="loaded"] { opacity: 1; transition: o
 .stats-ring, .stats-spoke, .stats-current, .stats-shape { pointer-events: none; }
 .stats-axis { cursor: pointer; outline: none; }
 .stats-axis-hit { fill: transparent; pointer-events: all; }
+.stats-hit-ring { fill: none; stroke: none; pointer-events: none; }
 .stats-axis.is-active .stats-dot { fill: var(--thread); stroke: var(--on-white); stroke-width: 1.6; }
-.stats-axis:focus-visible .stats-dot { stroke: var(--thread); stroke-width: 2.4; }
+/* Keyboard focus draws an ink ring on the transparent 52-unit hit disc plus a
+   heavier ink outline on the dot — never a yellow-on-yellow ring. */
+.stats-axis:focus-visible .stats-hit-ring { stroke: var(--on-white); stroke-width: 2.4; }
+.stats-axis:focus-visible .stats-dot { stroke: var(--on-white); stroke-width: 3; }
 .stats-axis-label {
   position: absolute;
   z-index: 2;
   transform: translate(-50%, -50%);
-  max-width: 64px;
-  font-size: var(--type-step-04);
+  max-width: 72px;
+  /* Named floor token: 12px, independent of the numbered step scale. */
+  font-size: var(--type-meta);
   font-weight: 900;
   letter-spacing: 0.08em;
   line-height: 1.25;
