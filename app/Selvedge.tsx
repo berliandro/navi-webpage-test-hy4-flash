@@ -58,8 +58,14 @@ function buildBits(seed: number, count = 20): Bit[] {
 
 const leftBits = buildBits(0x5eed_51de);
 const rightBits = buildBits(0xb17d_5eed);
+// Subpages keep the raw-edge yarn ends as a static detail: fewer threads, no
+// looping animation. Home stays the full forty-thread authored moment.
+const leftQuiet = buildBits(0x5eed_51de, 6);
+const rightQuiet = buildBits(0xb17d_5eed, 6);
 
-export default function Selvedge() {
+export default function Selvedge({ quiet = false }: { quiet?: boolean }) {
+  const left = quiet ? leftQuiet : leftBits;
+  const right = quiet ? rightQuiet : rightBits;
   const render = (bit: Bit, side: "left" | "right", i: number) => (
     <span
       key={`${side}-${i}`}
@@ -81,9 +87,9 @@ export default function Selvedge() {
   );
 
   return (
-    <div className="selvedge" aria-hidden="true">
-      {leftBits.map((bit, i) => render(bit, "left", i))}
-      {rightBits.map((bit, i) => render(bit, "right", i))}
+    <div className={`selvedge${quiet ? " selvedge--quiet" : ""}`} aria-hidden="true">
+      {left.map((bit, i) => render(bit, "left", i))}
+      {right.map((bit, i) => render(bit, "right", i))}
     </div>
   );
 }

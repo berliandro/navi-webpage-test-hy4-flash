@@ -33,7 +33,7 @@ const fits: { id: Fit; label: string }[] = [
 // listing stays reachable and the Official / Fan-made lens stays independent.
 const sorts: { id: Sort; label: string }[] = [
   { id: "curated", label: "Curated" },
-  { id: "official", label: "Official first" },
+  { id: "official", label: "Official before fan-made" },
   { id: "az", label: "Name A–Z" },
 ];
 

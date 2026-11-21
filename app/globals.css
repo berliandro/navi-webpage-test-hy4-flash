@@ -204,6 +204,15 @@ a { color: inherit; }
   }
 }
 html[data-motion="paused"] .selvedge-bit { animation-play-state: paused; }
+/* Subpages: the raw-edge yarn stays as a faint static detail, so the garment
+   identity survives without forty looping layers on a fact-finding page. */
+.selvedge--quiet .selvedge-bit {
+  animation: none;
+  will-change: auto;
+  opacity: 0.3;
+  box-shadow: none;
+  transform: translate3d(var(--sxm, 0), 0, 0);
+}
 
 /* ---------- neck tape / primary nav ---------- */
 .topbar {

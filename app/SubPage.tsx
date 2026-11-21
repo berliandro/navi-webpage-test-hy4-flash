@@ -18,7 +18,7 @@ type SubPageProps = {
 export default function SubPage({ active, title, lede, children }: SubPageProps) {
   return (
     <main className="garment page-stage" id="main-content" tabIndex={-1}>
-      <Selvedge />
+      <Selvedge quiet />
       <SiteHeader active={active} />
       <div className="page-wrap">
         <div className="page-content">
