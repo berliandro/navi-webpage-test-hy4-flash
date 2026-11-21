@@ -1017,6 +1017,21 @@ img[data-hydrated="true"][data-media-state="loaded"] { opacity: 1; transition: o
   text-transform: uppercase;
   color: var(--on-white);
 }
+/* Point-of-use glosses: the two jargon terms are explained where they first
+   appear, so the full Terms disclosure stays the complete glossary, not a
+   prerequisite for reading the stats sheet. */
+.stats-gloss {
+  font-size: var(--type-meta);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  line-height: 1.35;
+  text-transform: none;
+  color: var(--on-white-soft);
+}
+.stats-gloss--axis {
+  display: block;
+  margin: 0.15rem 0 0;
+}
 /* A square frame keeps the hexagon from letterboxing into empty side gutters. */
 .stats-hex-frame {
   flex: 1 1 auto;
@@ -1935,6 +1950,25 @@ img[data-hydrated="true"][data-media-state="loaded"] { opacity: 1; transition: o
   border-bottom: 1px dashed var(--seam);
 }
 .shop-rail .shop-filter[aria-pressed="true"] { background: var(--thread); color: var(--on-white); border-color: var(--thread); }
+/* A second, clearly labelled row. Same pill vocabulary as the lens, kept
+   separate so "filter" and "sort" never read as one ambiguous choice. */
+.shop-sort {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.75rem;
+}
+.shop-sort-label {
+  margin-right: 0.25rem;
+  font-size: var(--type-code);
+  font-weight: 800;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--on-black-faint);
+}
+.shop-sort .shop-filter:hover { color: var(--on-black); border-color: var(--on-black-soft); }
+.shop-sort .shop-filter[aria-pressed="true"] { background: var(--thread); color: var(--on-white); border-color: var(--thread); }
 .shop-count {
   margin-left: auto;
   font-size: var(--type-step-11);

@@ -7,11 +7,20 @@ import { merch, type MerchKind } from "../merch";
 import { asset } from "../assetPath";
 
 type Lens = "all" | MerchKind;
+type Sort = "curated" | "official" | "az";
 
 const lenses: { id: Lens; label: string }[] = [
   { id: "all", label: "All items" },
   { id: "official", label: "Official" },
   { id: "fan", label: "Fan-made" },
+];
+
+// Non-price, deterministic orders. Sorting only rearranges cards — every
+// listing stays reachable and the Official / Fan-made lens stays independent.
+const sorts: { id: Sort; label: string }[] = [
+  { id: "curated", label: "Curated" },
+  { id: "official", label: "Official first" },
+  { id: "az", label: "Name A–Z" },
 ];
 
 function firstGrapheme(value: string): string {
@@ -20,9 +29,20 @@ function firstGrapheme(value: string): string {
 
 export default function ShopPage() {
   const [lens, setLens] = useState<Lens>("all");
-  const visible = lens === "all" ? merch : merch.filter((item) => item.kind === lens);
+  const [sort, setSort] = useState<Sort>("curated");
   const officialCount = merch.filter((item) => item.kind === "official").length;
   const fanCount = merch.length - officialCount;
+
+  let visible = lens === "all" ? merch : merch.filter((item) => item.kind === lens);
+  if (sort === "official") {
+    visible = [...visible].sort((a, b) =>
+      a.kind === b.kind ? 0 : a.kind === "official" ? -1 : 1,
+    );
+  } else if (sort === "az") {
+    visible = [...visible].sort((a, b) =>
+      a.name.localeCompare(b.name, undefined, { sensitivity: "base" }),
+    );
+  }
 
   return (
     <SubPage
@@ -48,6 +68,21 @@ export default function ShopPage() {
         <span className="shop-count" role="status">
           {visible.length} of {merch.length} items
         </span>
+      </div>
+
+      <div className="shop-sort" role="group" aria-label="Sort merchandise">
+        <span className="shop-sort-label">Sort</span>
+        {sorts.map((option) => (
+          <button
+            key={option.id}
+            type="button"
+            className="shop-filter"
+            aria-pressed={sort === option.id}
+            onClick={() => setSort(option.id)}
+          >
+            {option.label}
+          </button>
+        ))}
       </div>
 
       <p className="shop-note">

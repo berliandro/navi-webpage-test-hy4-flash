@@ -409,7 +409,9 @@ function StatsPanel({
       </div>
       {stats ? (
         <>
-          <span className="stats-shape-note" aria-hidden="true">Shape · not a score</span>
+          <span className="stats-shape-note">
+            Shape · <span className="stats-gloss">six published figures drawn to scale, not a score</span>
+          </span>
           <div className="stats-hex-frame">
           <svg className="stats-hex" viewBox="0 0 200 200" role="group" aria-label={`Six-axis statistics hexagon for ${player.handle}`}>
             {[0.33, 0.66, 1].map((ring) => (
@@ -507,6 +509,9 @@ function StatsPanel({
             {statAxes.map((axis) => (
               <div key={axis.key}>
                 <dt>{axis.label}</dt>
+                {axis.key === "deaths" && (
+                  <span className="stats-gloss stats-gloss--axis">avg deaths · lower is better</span>
+                )}
                 <dd>{stats ? axis.format(axis.raw(stats)) : "—"}</dd>
               </div>
             ))}
