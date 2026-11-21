@@ -120,10 +120,18 @@ Two fabric neutrals and one signal thread. All other values are tonal steps of t
 **Character:** A compact, heavy grotesque. Identity is set in very tight, uppercase display weight like heat-pressed lettering; the woven tag and control labels are small and widely tracked, like a garment care label. Tabular figures are reserved for published statistics and product metadata.
 
 ### Hierarchy
-- **Display** (900, clamp(2.4rem, 5vw, 5.2rem), line-height 0.86, tracking -0.055em): `NAVI MPL ID` on the chest panel.
+
+Every role has a named token and a **12px functional floor**. Nothing user-visible renders smaller; hierarchy below the display sizes comes from weight, tracking, case and position, never from a smaller glyph. Archivo is variable 100–900, so `font-synthesis: none` prevents the browser faking a weight.
+
+- **Display** (`--type-display`, 900, clamp(2.4rem, 5vw, 5.2rem), line-height 0.86, tracking -0.055em): `NAVI MPL ID` on the chest panel.
 - **Print** (900, clamp(2rem, calc(--type-print-vw × 7 / --chars), 4.6rem), tracking -0.055em): The featured player handle, scaled by grapheme count; final grapheme in thread.
-- **Label** (800, 0.62rem, tracking 0.18em, uppercase): Navigation, tabs, filters, tag heading, hem facts, shop controls.
-- **Code** (800, 0.54rem, tracking 0.24em, uppercase): One-word roles on the tag, counters, product resolution.
+- **Headline** (`--type-headline`, clamp(1.8rem, 5vw, 3rem)) and **Title** (`--type-title`, clamp(1.1rem, 2vw, 1.7rem)): subpage headers and section heads.
+- **Body** (`--type-body`, 1rem/16px, line-height 1.5–1.6, measure 45–75ch): prose and descriptions.
+- **Label** (`--type-label`, 800, 0.875rem/14px, tracking 0.18em, uppercase): Navigation, tabs, filters, tag heading, hem facts, shop controls.
+- **Code** (`--type-code`, 800, 0.8125rem/13px, tracking 0.24em, uppercase): One-word roles on the tag, counters, product resolution.
+- **Meta** (`--type-meta`, 0.75rem/12px): Credits, provenance links, match metadata and the smallest instrumentation.
+
+The numbered steps `--type-step-01`…`--type-step-14` alias these role tokens so existing selectors inherit the floor; adjacent steps differentiate by weight and tracking rather than by glyph size below 12px.
 
 ## Layout
 

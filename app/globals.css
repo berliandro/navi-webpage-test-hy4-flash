@@ -51,20 +51,26 @@
   --type-print-vw: 4.6vw;
   --track-label: 0.18em;
   --track-code: 0.24em;
-  --type-step-01: 0.46rem;
-  --type-step-02: 0.52rem;
-  --type-step-03: 0.54rem;
-  --type-step-04: 0.56rem;
-  --type-step-05: 0.58rem;
-  --type-step-06: 0.5rem;
-  --type-step-07: 0.62rem;
-  --type-step-08: 0.64rem;
-  --type-step-09: 0.66rem;
-  --type-step-10: 0.68rem;
-  --type-step-11: 0.6rem;
-  --type-step-12: 0.72rem;
-  --type-step-13: 1.3rem;
-  --type-step-14: clamp(0.66rem, 0.76vw, 0.8rem);
+  /* Type roles. The functional floor is 12px: hierarchy below that comes from
+     weight, tracking, case and position, never from shrinking the glyph. */
+  --type-meta: 0.75rem;      /* 12px — instrumentation, credits, counters */
+  --type-code: 0.8125rem;    /* 13px — one-word roles, product codes */
+  --type-label: 0.875rem;    /* 14px — controls, labels, short metadata */
+  --type-body: 1rem;         /* 16px — prose */
+  --type-step-01: var(--type-meta);
+  --type-step-02: var(--type-meta);
+  --type-step-03: var(--type-meta);
+  --type-step-04: var(--type-meta);
+  --type-step-05: var(--type-code);
+  --type-step-06: var(--type-meta);
+  --type-step-07: var(--type-code);
+  --type-step-08: var(--type-code);
+  --type-step-09: var(--type-label);
+  --type-step-10: var(--type-label);
+  --type-step-11: var(--type-code);
+  --type-step-12: var(--type-label);
+  --type-step-13: 1.25rem;
+  --type-step-14: clamp(0.75rem, 0.9vw, 0.875rem);
   --type-step-15: clamp(0.95rem, 1.1vw, 1.2rem);
   --type-step-16: clamp(0.9rem, 1.3vw, 1.1rem);
   --type-step-17: clamp(1.1rem, 2vw, 1.7rem);
@@ -76,6 +82,10 @@
   --type-step-23: clamp(2.8rem, 7vw, 6rem);
   --type-step-24: clamp(2rem, 6vw, 4.6rem);
   --type-step-25: clamp(2rem, calc(var(--type-print-vw) * 7 / var(--chars, 7)), 4.6rem);
+  /* Display roles alias the existing scale so current selectors keep working. */
+  --type-title: var(--type-step-17);
+  --type-headline: var(--type-step-20);
+  --type-display: var(--type-step-22);
 }
 
 * { box-sizing: border-box; }
@@ -86,6 +96,8 @@ html, body {
   background: var(--cloth-black);
   color: var(--on-black);
   font-family: "Archivo", Arial, sans-serif;
+  /* Archivo ships every weight 100–900; never synthesise a missing one. */
+  font-synthesis: none;
   -webkit-font-smoothing: antialiased;
 }
 
