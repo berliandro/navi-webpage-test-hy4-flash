@@ -109,6 +109,30 @@ html { scrollbar-color: var(--seam) var(--cloth-black); scrollbar-width: thin; }
 ::selection { background: var(--thread); color: var(--on-white); }
 :focus-visible { outline: 2px solid var(--thread); outline-offset: 4px; }
 
+/* Skip link: first in the DOM, offscreen until keyboard focus. On focus it
+   becomes one more stitched care label. The ring is ink, not thread, so it
+   stays visible on the yellow fill. */
+.skip-link {
+  position: fixed;
+  top: max(0.5rem, env(safe-area-inset-top));
+  left: max(0.5rem, env(safe-area-inset-left));
+  z-index: 100;
+  transform: translateY(-200%);
+  padding: 0.6rem 0.9rem;
+  background: var(--thread);
+  color: var(--on-white);
+  font-size: var(--type-label);
+  font-weight: 800;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: var(--radius-seam);
+  box-shadow: var(--shadow-stitch);
+}
+.skip-link:focus { transform: translateY(0); }
+.skip-link:focus-visible { outline-color: var(--on-white); }
+main:focus { outline: none; }
+
 .sr-only {
   position: absolute;
   width: 1px;

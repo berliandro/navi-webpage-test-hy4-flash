@@ -741,9 +741,8 @@ export default function Page() {
   }
 
   return (
-    <main className="garment">
+    <main className="garment" id="main-content" tabIndex={-1}>
       <Selvedge />
-      <h1 className="sr-only">NAVI MPL ID roster</h1>
       <p className="sr-only" role="status" hidden={statsOpen && tab === "players"}>
         {tab === "staff"
           ? "Showing coaching staff"
@@ -906,7 +905,7 @@ export default function Page() {
           ) : (
             <>
               <div className={`chest-copy${statsOpen && tab === "players" ? " is-reading" : ""}`}>
-                <h2 className="chest-name">NAVI MPL ID</h2>
+                <h1 className="chest-name">NAVI MPL ID</h1>
                 <p className="chest-proof">MPL ID Season 18 runners-up</p>
                 <p className="chest-context">Indonesian MLBB team · MPL ID</p>
               </div>
@@ -1024,7 +1023,7 @@ export default function Page() {
         </aside>
       </section>
 
-      <aside className="hem" aria-label="Verified achievements">
+      <footer className="hem" aria-label="Verified achievements">
         {tab === "staff" ? (
           <>
             <span className="hem-item">Team honours · MPL ID Season 18 runners-up</span>
@@ -1038,7 +1037,7 @@ export default function Page() {
             <span className="hem-item">Aprho · First Team roamer</span>
           </>
         )}
-      </aside>
+      </footer>
     </main>
   );
 }

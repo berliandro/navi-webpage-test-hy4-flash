@@ -62,6 +62,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en">
       <body>
+        {/* First focusable element in the document. Hidden until keyboard focus,
+            then it lands on the single main landmark on every route. */}
+        <a className="skip-link" href="#main-content">Skip to content</a>
         <PressFeedback />
         <AmbientMotion />
         {children}

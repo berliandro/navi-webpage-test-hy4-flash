@@ -17,7 +17,7 @@ type SubPageProps = {
  */
 export default function SubPage({ active, title, lede, children }: SubPageProps) {
   return (
-    <main className="garment page-stage">
+    <main className="garment page-stage" id="main-content" tabIndex={-1}>
       <Selvedge />
       <SiteHeader active={active} />
       <div className="page-wrap">
@@ -27,12 +27,12 @@ export default function SubPage({ active, title, lede, children }: SubPageProps)
           {children}
         </div>
       </div>
-      <aside className="hem page-proof" aria-label="Verified achievements">
+      <footer className="hem page-proof" aria-label="Verified achievements">
         <span className="hem-item">MPL ID Season 18 runners-up</span>
         <span className="hem-item">Joshuaa · First Team jungler</span>
         <span className="hem-item">Joshuaa · Rookie of the Season</span>
         <span className="hem-item">Aprho · First Team roamer</span>
-      </aside>
+      </footer>
     </main>
   );
 }
