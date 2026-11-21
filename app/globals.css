@@ -2146,8 +2146,9 @@ img[data-hydrated="true"][data-media-state="loaded"] { opacity: 1; transition: o
 /* At the narrowest width the cloth must hold the 12px floor: give the off-white
    panel and its copy more of the field instead of clipping knee-high labels. */
 @media (max-width: 380px) {
+  --track-label: 0.12em;
   .cloth--white { width: 60%; }
-  .chest-copy { left: var(--gutter); max-width: 54%; }
+  .chest-copy { left: var(--gutter); max-width: 40%; }
   .print { left: 62%; width: 56%; }
 }
 
