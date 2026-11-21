@@ -458,7 +458,9 @@ function StatsPanel({
                     }
                   }}
                 >
-                  <circle className="stats-axis-hit" cx={anchor.x} cy={anchor.y} r={11} />
+                  {/* Transparent 52-unit disc: >=44px effective target at the
+                      hexagon's narrowest rendered scale, with no visual change. */}
+                  <circle className="stats-axis-hit" cx={anchor.x} cy={anchor.y} r={26} />
                   <circle className="stats-dot" cx={point.x} cy={point.y} r={isActive ? 5.2 : 3.6} />
                 </g>
               );

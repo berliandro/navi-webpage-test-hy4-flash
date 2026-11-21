@@ -150,6 +150,8 @@ Flat by default; depth comes from fabric layering, a fine woven grain and a few 
 ### Shadow Vocabulary
 - **Stitch lift** (`--shadow-stitch`: `0 10px 28px rgba(0,0,0,0.42)`): Woven tag and care label against the cloth. The stats readout is printed flat on the fabric and never lifts.
 - **Print drop** (`0 16px 24px rgba(0,0,0,0.55)`): Player cutouts against the garment.
+- **Ink shadow under heat-pressed type** (`0 8px 22px rgba(0,0,0,0.65)`): The featured handle on the white chest panel; deeper than print drop so the heavy caps read against cloth grain.
+- **Pressed care-label lift** (`0 14px 30px rgba(0,0,0,0.5)`): The Shop care label on hover; a downward-offset soft shadow, never a colour halo.
 
 **The Unbroken Print Rule.** A cutout that is loading or has failed never breaks the field — the swatch and a monogram hold the space.
 

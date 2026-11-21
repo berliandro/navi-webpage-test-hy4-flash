@@ -1,6 +1,6 @@
 ﻿{
   "schemaVersion": 2,
-  "generatedAt": "2026-11-21T06:42:17Z",
+  "generatedAt": "2026-11-21T06:58:46Z",
   "title": "Design System: NAVI MPL ID Fan Hub",
   "extensions": {
     "colorMeta": {
@@ -18,7 +18,7 @@
     },
     "shadows": [
       { "name": "stitch-lift", "value": "0 10px 28px rgba(0,0,0,0.42)", "purpose": "Woven tag and Shop care label against the cloth; the stats spec sheet prints flat and never lifts." },
-      { "name": "print-drop", "value": "0 16px 24px rgba(0,0,0,0.55)", "purpose": "Featured player cutout against the garment." }
+      { "name": "print-drop", "value": "0 16px 24px rgba(0,0,0,0.55)", "purpose": "Featured player cutout against the garment." }, { "name": "ink-type-shadow", "value": "0 8px 22px rgba(0,0,0,0.65)", "purpose": "Heat-pressed handle on the white chest panel." }, { "name": "care-label-lift", "value": "0 14px 30px rgba(0,0,0,0.5)", "purpose": "Shop care label on hover." }
     ],
     "clipPaths": [
       { "name": "cloth-diagonal", "value": "polygon(0 0, 84% 0, 100% 100%, 0 100%)", "purpose": "Off-white cloth panel's diagonal seam edge." },
@@ -117,4 +117,6 @@
     ]
   }
 }
+
+
 

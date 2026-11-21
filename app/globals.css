@@ -1,4 +1,4 @@
-/* ============================================================
+﻿/* ============================================================
    NAVI MPL ID — Cut-and-Sew Jersey
    A fan hub built as one garment: panelled cloth, one yellow
    piping thread, a woven line-up tag and a stitched care label.
@@ -33,6 +33,8 @@
   --weave-light: repeating-linear-gradient(90deg, rgba(20, 21, 15, 0.035) 0 1px, transparent 1px 4px),
     repeating-linear-gradient(0deg, rgba(20, 21, 15, 0.03) 0 1px, transparent 1px 4px);
   --shadow-stitch: 0 10px 28px rgba(0, 0, 0, 0.42);
+  --shadow-type-press: 0 8px 22px rgba(0, 0, 0, 0.65);
+  --shadow-care-lift: 0 14px 30px rgba(0, 0, 0, 0.5);
   --radius-seam: 2px;
   --thread-glow: rgba(255, 212, 0, 0.28);
   --thread-faint: rgba(255, 212, 0, 0.06);
@@ -690,7 +692,7 @@ img[data-hydrated="true"][data-media-state="loaded"] { opacity: 1; transition: o
   line-height: 0.84;
   letter-spacing: -0.055em;
   text-transform: uppercase;
-  text-shadow: 0 8px 22px rgba(0, 0, 0, 0.65);
+  text-shadow: var(--shadow-type-press);
   overflow-wrap: anywhere;
 }
 .print-handle em { color: var(--thread); font-style: normal; }
@@ -864,7 +866,7 @@ img[data-hydrated="true"][data-media-state="loaded"] { opacity: 1; transition: o
   transition: transform 220ms var(--ease), box-shadow 220ms var(--ease);
 }
 .care-label span { margin-left: 0.3rem; }
-.care-label:hover { transform: translateY(-2px); box-shadow: 0 14px 30px rgba(0, 0, 0, 0.5); }
+.care-label:hover { transform: translateY(-2px); box-shadow: var(--shadow-care-lift); }
 
 /* ---------- sourced stats, printed on the white cloth ---------- */
 .stats-panel[hidden] { display: none; }
@@ -2195,12 +2197,36 @@ img[data-hydrated="true"][data-media-state="loaded"] { opacity: 1; transition: o
   .hem-item { letter-spacing: 0.1em; font-size: var(--type-step-04); }
 }
 
-@media (pointer: coarse) {
-  .tab, .stats-toggle, .filter, .shop-filter { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; }
+/* One 44px floor for narrow widths AND coarse pointers. Hit areas grow with
+   transparent padding / pseudo-elements so the garment drawing never changes. */
+@media (max-width: 560px), (pointer: coarse) {
+  .skip-link { min-height: 44px; display: inline-flex; align-items: center; }
+  .brand { min-height: 44px; }
+  .tab, .stats-toggle, .filter, .shop-filter {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    min-width: 44px;
+  }
   .feature-nav button, .stats-close { width: 44px; height: 44px; }
   .nav-links a { display: inline-flex; align-items: center; min-height: 44px; }
   .tag-list button { min-height: 44px; }
-  .care-label, .shop-link { min-height: 44px; display: grid; place-items: center; }
+  .care-label, .shop-link { min-height: 44px; min-width: 44px; display: grid; place-items: center; }
+  .legacy-toggle { min-height: 44px; min-width: 44px; }
+  /* Provenance links: grid links get real height; lone inline links get an
+     invisible 44px band so the source text keeps its typographic rhythm. */
+  .legacy-links a { min-height: 44px; display: flex; align-items: center; }
+  .legacy-source, .stats-source { position: relative; }
+  .legacy-source::after, .stats-source::after {
+    content: "";
+    position: absolute;
+    inset-inline: 0;
+    top: 50%;
+    height: 44px;
+    transform: translateY(-50%);
+    pointer-events: auto;
+  }
 }
 
 @media (hover: none) {
@@ -2247,3 +2273,4 @@ img[data-hydrated="true"][data-media-state="loaded"] { opacity: 1; transition: o
   .nav-links a[aria-current="page"] { outline: 2px solid CanvasText; outline-offset: 2px; }
   .crest-bar { border: 1px solid CanvasText; border-inline-start: 0; }
 }
+
