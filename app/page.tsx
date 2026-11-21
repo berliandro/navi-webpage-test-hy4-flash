@@ -908,7 +908,7 @@ export default function Page() {
               <div className={`chest-copy${statsOpen && tab === "players" ? " is-reading" : ""}`}>
                 <h2 className="chest-name">NAVI MPL ID</h2>
                 <p className="chest-proof">MPL ID Season 18 runners-up</p>
-                <p className="chest-context">Indonesian Mobile Legends team · MPL Indonesia</p>
+                <p className="chest-context">Indonesian MLBB team · MPL ID</p>
               </div>
 
               <article
@@ -935,7 +935,7 @@ export default function Page() {
                   />
                 </div>
                 <p className="hero-hint" hidden={hintDismissed}>
-                  Select a teammate · filters focus the roster
+                  Select a teammate
                 </p>
                 <div className="print-name" key={`name-${featured.id}`} data-dir={dir}>
                   <h3

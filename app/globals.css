@@ -833,6 +833,8 @@ img[data-hydrated="true"][data-media-state="loaded"] { opacity: 1; transition: o
   text-align: center;
   text-transform: uppercase;
   text-decoration: none;
+  /* At the 12px floor the care-label line must stay one stitch. */
+  white-space: nowrap;
   border-radius: var(--radius-seam);
   box-shadow: var(--shadow-stitch);
   transition: transform 220ms var(--ease), box-shadow 220ms var(--ease);
@@ -2053,6 +2055,7 @@ img[data-hydrated="true"][data-media-state="loaded"] { opacity: 1; transition: o
 }
 
 @media (max-width: 560px) {
+  .stats-toggle { white-space: nowrap; }
   .garment { padding-top: max(1rem, env(safe-area-inset-top)); padding-bottom: max(2rem, env(safe-area-inset-bottom)); }
   .topbar { margin-bottom: 0.8rem; row-gap: 0.5rem; }
   .nav-links { padding-top: 0.5rem; gap: 0.25rem 0.9rem; }
@@ -2138,6 +2141,14 @@ img[data-hydrated="true"][data-media-state="loaded"] { opacity: 1; transition: o
   .page-wrap { padding-inline: 5%; }
   .page-stage .page-proof { margin-inline: 5%; }
   .shop-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+}
+
+/* At the narrowest width the cloth must hold the 12px floor: give the off-white
+   panel and its copy more of the field instead of clipping knee-high labels. */
+@media (max-width: 380px) {
+  .cloth--white { width: 60%; }
+  .chest-copy { left: var(--gutter); max-width: 54%; }
+  .print { left: 62%; width: 56%; }
 }
 
 /* Short landscape keeps the single-screen field. */
