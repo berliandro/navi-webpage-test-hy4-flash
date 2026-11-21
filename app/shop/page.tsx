@@ -3,6 +3,7 @@
 import { useState } from "react";
 import MediaImage from "../MediaImage";
 import SubPage from "../SubPage";
+import { openTerms } from "../Terms";
 import { merch, type MerchItem, type MerchKind } from "../merch";
 import { asset } from "../assetPath";
 
@@ -146,6 +147,9 @@ export default function ShopPage() {
         Every card links out to the seller&apos;s own listing. Buying happens there, not on this site.
         Images remain the property of their respective owners; sources are recorded in the merchandise provenance file.
       </p>
+      <button type="button" className="glossary-link" onClick={openTerms}>
+        Full glossary →
+      </button>
 
       {groups.length ? (
         <>

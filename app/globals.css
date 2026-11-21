@@ -334,6 +334,27 @@ html[data-motion="paused"] .selvedge-bit { animation-play-state: paused; }
   line-height: 1.5;
   color: var(--on-black-soft);
 }
+/* A hairline route back to the full glossary from the two places that use
+   jargon. Real button, real 44px target; colour follows the surface it sits on. */
+.glossary-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0.3rem 0;
+  border: 0;
+  border-bottom: 1px solid var(--seam);
+  background: none;
+  font-size: var(--type-code);
+  font-weight: 800;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--on-black-soft);
+  cursor: pointer;
+  transition: color 200ms var(--ease), border-color 200ms var(--ease);
+}
+.glossary-link:hover { color: var(--thread); border-color: var(--thread); }
+.stats-panel .glossary-link { color: var(--on-white-soft); }
+.stats-panel .glossary-link:hover { color: var(--on-white); border-color: var(--thread); }
 
 /* ---------- stitched controls ---------- */
 .seam-controls {

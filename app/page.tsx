@@ -12,6 +12,7 @@ import {
 import MediaImage from "./MediaImage";
 import Selvedge from "./Selvedge";
 import SiteHeader from "./SiteHeader";
+import { openTerms } from "./Terms";
 import { asset, route } from "./assetPath";
 
 type Player = {
@@ -520,6 +521,9 @@ function StatsPanel({
             MPL ID Season 18 regular season · polygon scaled to NAVI&apos;s published maximum ·
             * AVG D is published average deaths; fewer deaths extends the shape
           </p>
+          <button type="button" className="glossary-link" onClick={openTerms}>
+            Full glossary →
+          </button>
         </>
       ) : (
         <div className="stats-empty">
