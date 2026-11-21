@@ -1950,16 +1950,16 @@ img[data-hydrated="true"][data-media-state="loaded"] { opacity: 1; transition: o
   border-bottom: 1px dashed var(--seam);
 }
 .shop-rail .shop-filter[aria-pressed="true"] { background: var(--thread); color: var(--on-white); border-color: var(--thread); }
-/* A second, clearly labelled row. Same pill vocabulary as the lens, kept
-   separate so "filter" and "sort" never read as one ambiguous choice. */
-.shop-sort {
+/* Three clearly labelled pill rows: provenance lens, season fit, then order.
+   Same vocabulary throughout so no single row reads as the "real" filter. */
+.shop-fit, .shop-sort {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
   gap: 0.4rem;
   margin-top: 0.75rem;
 }
-.shop-sort-label {
+.shop-fit-label, .shop-sort-label {
   margin-right: 0.25rem;
   font-size: var(--type-code);
   font-weight: 800;
@@ -1967,8 +1967,8 @@ img[data-hydrated="true"][data-media-state="loaded"] { opacity: 1; transition: o
   text-transform: uppercase;
   color: var(--on-black-faint);
 }
-.shop-sort .shop-filter:hover { color: var(--on-black); border-color: var(--on-black-soft); }
-.shop-sort .shop-filter[aria-pressed="true"] { background: var(--thread); color: var(--on-white); border-color: var(--thread); }
+.shop-fit .shop-filter:hover, .shop-sort .shop-filter:hover { color: var(--on-black); border-color: var(--on-black-soft); }
+.shop-fit .shop-filter[aria-pressed="true"], .shop-sort .shop-filter[aria-pressed="true"] { background: var(--thread); color: var(--on-white); border-color: var(--thread); }
 .shop-count {
   margin-left: auto;
   font-size: var(--type-step-11);
@@ -1986,6 +1986,55 @@ img[data-hydrated="true"][data-media-state="loaded"] { opacity: 1; transition: o
   line-height: 1.8;
   text-transform: uppercase;
   color: var(--on-black-faint);
+}
+.shop-summary {
+  margin: 0.9rem 0 0;
+  font-size: var(--type-meta);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  line-height: 1.5;
+  color: var(--on-black-faint);
+}
+/* Duplicate seller listings share one card; the disclosure lists every
+   variant so all provenance entries stay reachable and countable. */
+.shop-variants { margin-top: 0.5rem; border-top: 1px solid var(--hairline-light); }
+.shop-variants > summary {
+  list-style: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  font-size: var(--type-code);
+  font-weight: 800;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--thread);
+}
+.shop-variants > summary::-webkit-details-marker { display: none; }
+.shop-variants > summary::after { content: "+"; margin-left: 0.4rem; }
+.shop-variants[open] > summary::after { content: "−"; }
+.shop-entries { list-style: none; margin: 0 0 0.5rem; padding: 0; }
+.shop-entry {
+  padding: 0.35rem 0;
+  border-top: 1px solid var(--hairline-light);
+  font-size: var(--type-meta);
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+  color: var(--on-black-soft);
+}
+.shop-entry a { color: inherit; text-decoration: none; border-bottom: 1px solid var(--seam); }
+.shop-entry a:hover { color: var(--thread); border-color: var(--thread); }
+/* The single-listing entry stays in the DOM but does not repeat the h2. */
+.shop-entries--single {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 .shop-grid {
   margin-top: 1.8rem;
