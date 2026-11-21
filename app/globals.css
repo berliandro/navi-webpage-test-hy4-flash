@@ -2147,9 +2147,9 @@ img[data-hydrated="true"][data-media-state="loaded"] { opacity: 1; transition: o
    panel and its copy more of the field instead of clipping knee-high labels. */
 @media (max-width: 380px) {
   --track-label: 0.12em;
-  .cloth--white { width: 60%; }
-  .chest-copy { left: var(--gutter); max-width: 40%; }
-  .print { left: 62%; width: 56%; }
+  .cloth--white { width: 82%; }
+  .chest-copy { left: var(--gutter); max-width: 56%; }
+  .print { left: 55%; width: 62%; }
 }
 
 /* Short landscape keeps the single-screen field. */

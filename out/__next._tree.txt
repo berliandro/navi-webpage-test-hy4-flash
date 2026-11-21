@@ -1,3 +1,3 @@
-:HL["/navi-webpage-test-hy4-flash/_next/static/chunks/1_6uqe3ouq7vu.css","style"]
+:HL["/navi-webpage-test-hy4-flash/_next/static/chunks/0lxtov_thiipw.css","style"]
 1:[["children",{"s":"__PAGE__","h":160}]]
-0:{"b":"7QEwEtNR1zhP89r4SYaaP","t":{"t":{"s":"","h":80,"c":"$Q1"}}}
+0:{"b":"D62aWpS1Yb02T81I2A087","t":{"t":{"s":"","h":80,"c":"$Q1"}}}
