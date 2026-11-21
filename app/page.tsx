@@ -870,7 +870,7 @@ export default function Page() {
             staff.length ? (
               <>
                 <div className="staff-identity">
-                  <h2 className="staff-identity-name">NAVI MPL ID</h2>
+                  <h1 className="staff-identity-name">NAVI MPL ID</h1>
                   <p className="staff-identity-meta">Coaching staff · Season 18</p>
                 </div>
                 <div className="staff-lineup">

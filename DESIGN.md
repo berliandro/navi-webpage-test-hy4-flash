@@ -32,13 +32,13 @@ typography:
     letterSpacing: "-0.055em"
   label:
     fontFamily: "Archivo, Arial, sans-serif"
-    fontSize: "0.62rem"
+    fontSize: "0.875rem"
     fontWeight: 800
     lineHeight: 1.4
     letterSpacing: "0.18em"
   code:
     fontFamily: "Archivo, Arial, sans-serif"
-    fontSize: "0.54rem"
+    fontSize: "0.8125rem"
     fontWeight: 800
     letterSpacing: "0.24em"
 rounded:

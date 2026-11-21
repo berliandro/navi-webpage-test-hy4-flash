@@ -1138,21 +1138,12 @@ img[data-hydrated="true"][data-media-state="loaded"] { opacity: 1; transition: o
   color: var(--on-white);
 }
 .stats-source {
-  position: relative;
+  /* Explanatory provenance prose, not an action — no fake hit band. */
   margin: auto 0 0;
   font-size: var(--type-meta);
   line-height: 1.5;
   color: var(--on-white);
   overflow-wrap: anywhere;
-}
-.stats-source::after {
-  content: "";
-  position: absolute;
-  inset-inline: 0;
-  top: 50%;
-  height: 44px;
-  transform: translateY(-50%);
-  pointer-events: auto;
 }
 .stats-empty {
   display: grid;
